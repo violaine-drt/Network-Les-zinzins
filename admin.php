@@ -46,7 +46,11 @@
                 /*
                  * Etape 2 : trouver tous les mots clés
                  */
-                $laQuestionEnSql = "SELECT * FROM `tags` LIMIT 50";
+                $laQuestionEnSql = "SELECT
+                tags.label AS taglist,
+                tags.id AS tagId
+                FROM tags LIMIT 50";
+                
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
                 if ( ! $lesInformations)
@@ -57,17 +61,18 @@
 
                 /*
                  * Etape 3 : @todo : Afficher les mots clés en s'inspirant de ce qui a été fait dans news.php
-                 * Attention à en pas oublier de modifier tag_id=321 avec l'id du mot dans le lien
+                 * Attention à ne pas oublier de modifier tag_id=321 avec l'id du mot dans le lien
                  */
                 while ($tag = $lesInformations->fetch_assoc())
                 {
-                    echo "<pre>" . print_r($tag, 1) . "</pre>";
+                    // echo "<pre>" . print_r($tag, 1) . "</pre>";
                     ?>
                     <article>
-                        <h3>#chaussette</h3>
-                        <p>id:321</p>
+                        <h3><?php echo $tag['taglist'] ?></h3>
+                        <p>Identifiant: <?php echo $tag['tagId'] ?></p>
                         <nav>
-                            <a href="tags.php?tag_id=321">Messages</a>
+                            <?php $tagId = intval($tag['tagId']) ?>
+                            <a href="tags.php?tag_id=<?php echo $tagId ?>">Messages</a>
                         </nav>
                     </article>
                 <?php } ?>
@@ -79,7 +84,12 @@
                  * Etape 4 : trouver tous les mots clés
                  * PS: on note que la connexion $mysqli à la base a été faite, pas besoin de la refaire.
                  */
-                $laQuestionEnSql = "SELECT * FROM `users` LIMIT 50";
+                $laQuestionEnSql = "SELECT 
+                users.id AS userId,
+                users.email AS userEmail,
+                users.password AS userPass,
+                users.alias AS userAlias
+                FROM users LIMIT 50";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
                 if ( ! $lesInformations)
@@ -92,19 +102,25 @@
                  * Etape 5 : @todo : Afficher les utilisatrices en s'inspirant de ce qui a été fait dans news.php
                  * Attention à en pas oublier de modifier dans le lien les "user_id=123" avec l'id de l'utilisatrice
                  */
-                while ($tag = $lesInformations->fetch_assoc())
+                while ($user = $lesInformations->fetch_assoc())
                 {
-                    echo "<pre>" . print_r($tag, 1) . "</pre>";
+                    echo "<pre>" . print_r($user, 1) . "</pre>";
                     ?>
                     <article>
-                        <h3>Alexandra</h3>
-                        <p>id:123</p>
+
+                     <!-- @todo: Aligner les balises "p" sans br/ -->
+                        <h3><?php echo $user['userAlias'] ?></h3>
+                        <p>Identifiant: <?php echo $user['userId'] ?></p> <br/>
+                        <p>Email: <?php echo $user['userEmail'] ?></p> <br/>
+                        <p>Mot de passe: <?php echo $user['userPass'] ?></p> <br/>
                         <nav>
-                            <a href="wall.php?user_id=123">Mur</a>
-                            | <a href="feed.php?user_id=123">Flux</a>
-                            | <a href="settings.php?user_id=123">Paramètres</a>
-                            | <a href="followers.php?user_id=123">Suiveurs</a>
-                            | <a href="subscriptions.php?user_id=123">Abonnements</a>
+
+                            <?php $userId = intval($user['userId']) ?>
+                            <a href="wall.php?user_id=<?php echo $userId ?>">Mur</a>
+                            | <a href="feed.php?user_id=<?php echo $userId ?>">Flux</a>
+                            | <a href="settings.php?user_id=<?php echo $userId ?>">Paramètres</a>
+                            | <a href="followers.php?user_id=<?php echo $userId ?>">Suiveurs</a>
+                            | <a href="subscriptions.php?user_id=<?php echo $userId ?>">Abonnements</a>
                         </nav>
                     </article>
                 <?php } ?>
