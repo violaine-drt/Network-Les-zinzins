@@ -31,7 +31,8 @@
          * Etape 1: Ouvrir une connexion avec la base de donnée.
          */
         // on va en avoir besoin pour la suite
-        $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
+        include 'importBdd.php';
+        $mysqli = importBdd();
         //verification
         if ($mysqli->connect_errno)
         {
@@ -104,7 +105,7 @@
                  */
                 while ($user = $lesInformations->fetch_assoc())
                 {
-                    echo "<pre>" . print_r($user, 1) . "</pre>";
+                    // echo "<pre>" . print_r($user, 1) . "</pre>";
                     ?>
                     <article>
 

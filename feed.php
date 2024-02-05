@@ -41,8 +41,8 @@
             /**
              * Etape 2: se connecter à la base de donnée
              */
-            $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
-            ?>
+            include 'importBdd.php';
+            $mysqli = importBdd();            ?>
 
             <aside>
                 <?php
