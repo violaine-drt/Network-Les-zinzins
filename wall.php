@@ -30,21 +30,23 @@
     <div id="wrapper">
         <?php
         /**
+         * Se connecter à la base de donnée
+         */
+        include 'importBdd.php';
+        $mysqli = importBdd();
+        session_start();
+        /**
          * Etape 1: Le mur concerne un utilisateur en particulier
          * La première étape est donc de trouver quel est l'id de l'utilisateur
          * Celui ci est indiqué en parametre GET de la page sous la forme user_id=...
          * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
          * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
          */
-        $userId = intval($_GET['user_id']);
+
+        $userId = intval($_SESSION['connected_id']);
+        
         ?>
-        <?php
-        /**
-         * Etape 2: se connecter à la base de donnée
-         */
-        include 'importBdd.php';
-        $mysqli = importBdd();
-        ?>
+
 
         <aside>
             <?php
@@ -86,6 +88,8 @@
                     GROUP BY posts.id
                     ORDER BY posts.created DESC  
                     ";
+                  
+                  
             $lesInformations = $mysqli->query($laQuestionEnSql);
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);

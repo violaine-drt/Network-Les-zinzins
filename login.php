@@ -39,6 +39,9 @@ session_start();
                 <article>
                     <h2>Connexion</h2>
                     <?php
+                    //Ouvrir une connexion avec la base de donnée.
+                    include 'importBdd.php';
+                    $mysqli = importBdd();
                     /**
                      * TRAITEMENT DU FORMULAIRE
                      */
@@ -56,9 +59,7 @@ session_start();
                         $passwdAVerifier = $_POST['motpasse'];
 
 
-                        //Etape 3 : Ouvrir une connexion avec la base de donnée.
-                        include 'importBdd.php';
-                        $mysqli = importBdd();
+
                         //Etape 4 : Petite sécurité
                         // pour éviter les injection sql : https://www.w3schools.com/sql/sql_injection.asp
                         $emailAVerifier = $mysqli->real_escape_string($emailAVerifier);
@@ -84,12 +85,16 @@ session_start();
                             echo "Votre connexion est un succès : " . $user['alias'] . ".";
                             // Etape 7 : Se souvenir que l'utilisateur s'est connecté pour la suite
                             // documentation: https://www.php.net/manual/fr/session.examples.basic.php
+                            session_write_close();
+                            session_start();
                             $_SESSION['connected_id']=$user['id'];
+                            echo "<pre>" . print_r($_SESSION['connected_id']) . "</pre>";
+                            
                         }
                     }
                     ?>                     
                     <form action="login.php" method="post">
-                        <input type='hidden'name='???' value='achanger'>
+
                         <dl>
                             <dt><label for='email'>E-Mail</label></dt>
                             <dd><input type='email'name='email'></dd>
