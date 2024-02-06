@@ -53,6 +53,9 @@
             include 'importBdd.php';
             $mysqli = importBdd();
 
+            session_start();
+            $userId = intval(  $_SESSION['connected_id']);
+
             //verification
             if ($mysqli->connect_errno) {
                 echo "<article>";
@@ -65,7 +68,6 @@
             // Etape 2: Poser une question à la base de donnée et récupérer ses informations
             // cette requete vous est donnée, elle est complexe mais correcte, 
             // si vous ne la comprenez pas c'est normal, passez, on y reviendra
-            $userId = intval($_GET['user_id']);
             $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,

@@ -34,7 +34,9 @@
         //          */ -->
         include 'importBdd.php';
         $mysqli = importBdd();
-        $userId = intval($_GET['user_id']);
+        session_start();
+        $userId = intval(  $_SESSION['connected_id']);
+
         $laQuestionEnSql = "SELECT 
                     users.alias AS userAlias
                     FROM users WHERE id= '$userId' ";
@@ -47,7 +49,7 @@
             <section>
                 <h3>Présentation</h3>
                 <p>Sur cette page vous trouverez les informations de l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
-                    (n° <?php echo intval($_GET['user_id']) ?>)</p>
+                    (n° <?php echo $userId ?>)</p>
 
             </section>
         </aside>
@@ -60,7 +62,6 @@
              * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
              * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
              */
-            $userId = intval($_GET['user_id']);
 
 
             /**

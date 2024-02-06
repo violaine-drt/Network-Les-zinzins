@@ -35,7 +35,9 @@
         //          */ -->
         include 'importBdd.php';
         $mysqli = importBdd();
-        $userId = intval($_GET['user_id']);
+        session_start();
+        $userId = intval(  $_SESSION['connected_id']);
+        
         $laQuestionEnSql = "SELECT 
                     users.alias AS userAlias
                     FROM users WHERE id= '$userId' ";
@@ -49,7 +51,7 @@
                 <h3>Présentation</h3>
                 <p>Sur cette page vous trouverez la liste des personnes dont
                     l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
-                    (n° <?php echo intval($_GET['user_id']) ?>) suit les messages</p>
+                    (n° <?php echo $userId ?>) suit les messages</p>
 
             </section>
         </aside>
