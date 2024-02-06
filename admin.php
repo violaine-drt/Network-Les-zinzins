@@ -110,13 +110,14 @@
                     <article>
 
                      <!-- @todo: Aligner les balises "p" sans br/ -->
-                        <h3><?php echo $user['userAlias'] ?></h3>
+                    <?php $userId = intval($user['userId']) ?>
+                        <h3><a href="wall.php?user_id=<?php echo $userId ?>" ><?php echo $user['userAlias'] ?></a></h3>
                         <p>Identifiant: <?php echo $user['userId'] ?></p> <br/>
                         <p>Email: <?php echo $user['userEmail'] ?></p> <br/>
                         <p>Mot de passe: <?php echo $user['userPass'] ?></p> <br/>
                         <nav>
 
-                            <?php $userId = intval($user['userId']) ?>
+                            
                             <a href="wall.php?user_id=<?php echo $userId ?>">Mur</a>
                             | <a href="feed.php?user_id=<?php echo $userId ?>">Flux</a>
                             | <a href="settings.php?user_id=<?php echo $userId ?>">Paramètres</a>
