@@ -102,7 +102,8 @@
                  * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
                  * A vous de retrouver comment faire la boucle while de parcours...
                  */
-                ?>                
+                ?>    
+                            
                 <article>
 
                     <h3>

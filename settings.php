@@ -1,62 +1,72 @@
 <!doctype html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Paramètres</title> 
-        <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
-    </head>
-    <body>
-        <header>
-            <img src="resoc.jpg" alt="Logo de notre réseau social"/>
-            <nav id="menu">
-                <a href="news.php">Actualités</a>
-                <a href="wall.php?user_id=5">Mur</a>
-                <a href="feed.php?user_id=5">Flux</a>
-                <a href="tags.php?tag_id=1">Mots-clés</a>
-            </nav>
-            <nav id="user">
-                <a href="#">Profil</a>
-                <ul>
-                    <li><a href="settings.php?user_id=5">Paramètres</a></li>
-                    <li><a href="followers.php?user_id=5">Mes suiveurs</a></li>
-                    <li><a href="subscriptions.php?user_id=5">Mes abonnements</a></li>
-                </ul>
 
-            </nav>
-        </header>
-        <div id="wrapper" class='profile'>
+<head>
+    <meta charset="utf-8">
+    <title>ReSoC - Paramètres</title>
+    <meta name="author" content="Julien Falconnet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header>
+        <img src="resoc.jpg" alt="Logo de notre réseau social" />
+        <nav id="menu">
+            <a href="news.php">Actualités</a>
+            <a href="wall.php?user_id=5">Mur</a>
+            <a href="feed.php?user_id=5">Flux</a>
+            <a href="tags.php?tag_id=1">Mots-clés</a>
+        </nav>
+        <nav id="user">
+            <a href="#">Profil</a>
+            <ul>
+                <li><a href="settings.php?user_id=5">Paramètres</a></li>
+                <li><a href="followers.php?user_id=5">Mes suiveurs</a></li>
+                <li><a href="subscriptions.php?user_id=5">Mes abonnements</a></li>
+            </ul>
+
+        </nav>
+    </header>
+    <div id="wrapper" class='profile'>
+        <?php
+        // <!-- /**
+        //          * Etape 2: se connecter à la base de donnée
+        //          */ -->
+        include 'importBdd.php';
+        $mysqli = importBdd();
+        $userId = intval($_GET['user_id']);
+        $laQuestionEnSql = "SELECT 
+                    users.alias AS userAlias
+                    FROM users WHERE id= '$userId' ";
+        $lesInformations = $mysqli->query($laQuestionEnSql);
+        $user = $lesInformations->fetch_assoc();
+
+        ?>
+        <aside>
+            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
+            <section>
+                <h3>Présentation</h3>
+                <p>Sur cette page vous trouverez les informations de l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
+                    (n° <?php echo intval($_GET['user_id']) ?>)</p>
+
+            </section>
+        </aside>
+        <main>
+            <?php
+            /**
+             * Etape 1: Les paramètres concernent une utilisatrice en particulier
+             * La première étape est donc de trouver quel est l'id de l'utilisatrice
+             * Celui ci est indiqué en parametre GET de la page sous la forme user_id=...
+             * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
+             * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
+             */
+            $userId = intval($_GET['user_id']);
 
 
-            <aside>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
-                <section>
-                    <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez les informations de l'utilisatrice
-                        n° <?php echo intval($_GET['user_id']) ?></p>
-
-                </section>
-            </aside>
-            <main>
-                <?php
-                /**
-                 * Etape 1: Les paramètres concernent une utilisatrice en particulier
-                 * La première étape est donc de trouver quel est l'id de l'utilisatrice
-                 * Celui ci est indiqué en parametre GET de la page sous la forme user_id=...
-                 * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
-                 * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
-                 */
-                $userId = intval($_GET['user_id']);
-
-                /**
-                 * Etape 2: se connecter à la base de donnée
-                 */
-                include 'importBdd.php';
-                $mysqli = importBdd();
-                /**
-                 * Etape 3: récupérer le nom de l'utilisateur
-                 */
-                $laQuestionEnSql = "
+            /**
+             * Etape 3: récupérer le nom de l'utilisateur
+             */
+            $laQuestionEnSql = "
                     SELECT users.*, 
                     users.alias AS userAlias,
                     users.id AS userId,
@@ -73,25 +83,23 @@
                     GROUP BY users.id
                     LIMIT 100
                     ";
-                $lesInformations = $mysqli->query($laQuestionEnSql);
-                if ( ! $lesInformations)
-                {
-                    echo("Échec de la requete : " . $mysqli->error);
-                }
-                while ($user = $lesInformations->fetch_assoc())
-                {
+            $lesInformations = $mysqli->query($laQuestionEnSql);
+            if (!$lesInformations) {
+                echo ("Échec de la requete : " . $mysqli->error);
+            }
+            while ($user = $lesInformations->fetch_assoc()) {
 
                 /**
                  * Etape 4: à vous de jouer
                  */
                 //@todo: afficher le résultat de la ligne ci dessous, remplacer les valeurs ci-après puiseffacer la ligne ci-dessous
                 // echo "<pre>" . print_r($user, 1) . "</pre>";
-                ?>
+            ?>
                 <article class='parameters'>
                     <h3>Mes Paramètres</h3>
                     <dl>
                         <dt>Pseudo</dt>
-                        <dd><?php echo $user['userAlias'] ?></dd>
+                        <dd><a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a></dd>
                         <dt>Email</dt>
                         <dd><?php echo $user['userEmail'] ?></dd>
                         <dt>Nombre de message</dt>
@@ -102,8 +110,9 @@
                         <dd><?php echo $user['totalrecieved'] ?></dd>
                     </dl>
                 </article>
-                <?php } ?>
-            </main>
-        </div>
-    </body>
+            <?php } ?>
+        </main>
+    </div>
+</body>
+
 </html>
