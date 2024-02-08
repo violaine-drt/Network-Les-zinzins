@@ -45,7 +45,38 @@ if ($wallId == $connectedId) {
             $lesInformations = $mysqli->query($laQuestionEnSql);
             $user = $lesInformations->fetch_assoc();
             $userAlias = $user['userAlias'];
-            $isFollowing = false;
+
+            $ChercherLesGensQueJeSuis = "
+                    SELECT users.*, 
+                    users.id AS followedId
+                    FROM followers 
+                    LEFT JOIN users ON users.id=followers.followed_user_id
+                    WHERE followers.following_user_id='$connectedId'
+                    GROUP BY users.id
+                    ";
+            $leResultat = $mysqli->query($ChercherLesGensQueJeSuis);
+           // A continuer: l'abonnement semble marcher mais ne reste pas en mémoire quand on revient sur la page
+
+           while ($follower = $leResultat->fetch_assoc()) {
+
+
+           if ($leResultat) {
+            $follower = $leResultat->fetch_assoc();
+        
+            if ($follower && intval($follower['followedId']) === $wallId) {
+                $isFollowing = true;
+                echo ('is following = true');
+            } else {
+                $isFollowing = false;
+                echo ('is following = false');
+                echo (' wall id: ' . $wallId);
+                echo (' followed id: ' . intval($follower['followedId']));
+            }
+        } else {
+            echo ("Échec de la requête : " . $mysqli->error);
+        }
+
+    }
             ?>
             <img src="user.jpg" alt="Portrait de l'utilisatrice" />
             <section>
