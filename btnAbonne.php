@@ -12,6 +12,8 @@ if ($isWorking) {
         echo "L'abonnement a échoué : " . $mysqli->error;
     } else {
         echo "Vous êtes bien abonné à : " . $userAlias;
+//redirige l'utilisateur sur la page où il était (pour réinitialiser le btn)
+        header("Location: wall.php?wall_id=" . $userId);
     }
 }
 

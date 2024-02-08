@@ -46,8 +46,9 @@ if ($wallId == $connectedId) {
             $user = $lesInformations->fetch_assoc();
             $userAlias = $user['userAlias'];
 
+            //Cette requête sort un tableau des id des personnes suivies
             $ChercherLesGensQueJeSuis = "
-                    SELECT users.*, 
+                    SELECT
                     users.id AS followedId
                     FROM followers 
                     LEFT JOIN users ON users.id=followers.followed_user_id
@@ -55,28 +56,27 @@ if ($wallId == $connectedId) {
                     GROUP BY users.id
                     ";
             $leResultat = $mysqli->query($ChercherLesGensQueJeSuis);
-           // A continuer: l'abonnement semble marcher mais ne reste pas en mémoire quand on revient sur la page
 
-           while ($follower = $leResultat->fetch_assoc()) {
-
-
-           if ($leResultat) {
-            $follower = $leResultat->fetch_assoc();
+// Vérifie que l'utilisateur connecté est abonné à la personne dont est affiché le mur
+        //Si la requête retourne qqch
+            if ($leResultat) {
+        //on initialise la variable isFollowing
+            $isFollowing = false;
+        //On parcourt les résultats de la requête (liste de mes abonnements) tant qu'il y a des résultats
+            while ($follower = $leResultat->fetch_assoc()) {
         
-            if ($follower && intval($follower['followedId']) === $wallId) {
-                $isFollowing = true;
-                echo ('is following = true');
-            } else {
-                $isFollowing = false;
-                echo ('is following = false');
-                echo (' wall id: ' . $wallId);
-                echo (' followed id: ' . intval($follower['followedId']));
+        //si l'identité de la personne suivie est celle du mur où l'on se trouve, isFollowing devient true
+                    if (intval($follower['followedId']) === $wallId) {
+                        $isFollowing = true;
+                        echo ('is following = true');
+                        break;
+                    }
+                }
+        //Si jamais la requête n'a rien retourné
+            }else {
+                echo "Échec de la requête : " . $mysqli->error;
             }
-        } else {
-            echo ("Échec de la requête : " . $mysqli->error);
-        }
 
-    }
             ?>
             <img src="user.jpg" alt="Portrait de l'utilisatrice" />
             <section>

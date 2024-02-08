@@ -5,9 +5,11 @@ if ($isWorking) {
     $lInstructionSql = "DELETE FROM followers WHERE followed_user_id=$userId and following_user_id=$connectedId ";
     $ok = $mysqli->query($lInstructionSql);
     if (!$ok) {
-        echo "L'abonnement a échoué : " . $mysqli->error;
+        echo "Le désabonnement a échoué : " . $mysqli->error;
     } else {
-        echo "Vous êtes bien abonné à : " . $userAlias;
+        echo "Vous ne suivez désormais plus " . $userAlias;
+//redirige l'utilisateur sur la page où il était (pour réinitialiser le btn)
+        header("Location: wall.php?wall_id=" . $userId);
     }
 }
 
