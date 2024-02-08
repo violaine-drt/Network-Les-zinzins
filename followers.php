@@ -39,7 +39,7 @@
             <section>
                 <h3>Présentation</h3>
                 <p>Sur cette page vous trouverez la liste des personnes qui
-                    suivent les messages de l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
+                    suivent les messages de l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
                     (n° <?php echo $userId ?>)</p>
 
             </section>

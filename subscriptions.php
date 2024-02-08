@@ -13,7 +13,7 @@
         <img src="resoc.jpg" alt="Logo de notre réseau social" />
         <nav id="menu">
             <a href="news.php">Actualités</a>
-            <a href="wall.php?user_id=5">Mur</a>
+            <a href="wall.php?wall_id=5">Mur</a>
             <a href="feed.php?user_id=5">Flux</a>
             <a href="tags.php?tag_id=1">Mots-clés</a>
         </nav>
@@ -50,7 +50,7 @@
             <section>
                 <h3>Présentation</h3>
                 <p>Sur cette page vous trouverez la liste des personnes dont
-                    l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
+                    l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
                     (n° <?php echo $userId ?>) suit les messages</p>
 
             </section>
@@ -82,7 +82,7 @@
             ?>
                 <article>
                     <img src="user.jpg" alt="blason" />
-                    <h3><a href="wall.php?user_id=<?php echo $follower['userId'] ?>"><?php echo $follower['userAlias'] ?></a></h3>
+                    <h3><a href="wall.php?wall_id=<?php echo $follower['userId'] ?>"><?php echo $follower['userAlias'] ?></a></h3>
                     <p>Identifiant : <?php echo $follower['userId'] ?></p>
                 </article>
             <?php } ?>

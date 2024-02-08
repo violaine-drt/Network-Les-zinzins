@@ -13,7 +13,7 @@
         <img src="resoc.jpg" alt="Logo de notre réseau social" />
         <nav id="menu">
             <a href="news.php">Actualités</a>
-            <a href="wall.php?user_id=5">Mur</a>
+            <a href="wall.php?wall_id=5">Mur</a>
             <a href="feed.php?user_id=5">Flux</a>
             <a href="tags.php?tag_id=1">Mots-clés</a>
         </nav>
@@ -48,7 +48,7 @@
             <img src="user.jpg" alt="Portrait de l'utilisatrice" />
             <section>
                 <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez les informations de l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
+                <p>Sur cette page vous trouverez les informations de l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
                     (n° <?php echo $userId ?>)</p>
 
             </section>
@@ -100,7 +100,7 @@
                     <h3>Mes Paramètres</h3>
                     <dl>
                         <dt>Pseudo</dt>
-                        <dd><a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a></dd>
+                        <dd><a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a></dd>
                         <dt>Email</dt>
                         <dd><?php echo $user['userEmail'] ?></dd>
                         <dt>Nombre de message</dt>

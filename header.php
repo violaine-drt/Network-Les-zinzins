@@ -2,7 +2,7 @@
 <img src="resoc.jpg" alt="Logo de notre réseau social" />
         <nav id="menu">
             <a href="news.php">Actualités</a>
-            <a href="wall.php?user_id=<?php echo $connectedId ?>">Mur</a>
+            <a href="wall.php?wall_id=<?php echo $connectedId ?>">Mur</a>
             <a href="feed.php?user_id=<?php echo $connectedId ?>">Flux</a>
             <a href="tags.php?tag_id=1">Mots-clés</a>
         </nav>

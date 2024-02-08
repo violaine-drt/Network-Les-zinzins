@@ -1,11 +1,11 @@
 <?php
-            
+include 'importBdd.php';
+$mysqli = importBdd();                     
              
 $connectedId = intval(  $_SESSION['connected_id']);
 $userId = $connectedId;
             
-include 'importBdd.php';
-$mysqli = importBdd();            
+  
 ?>
 
 <!doctype html>
@@ -40,7 +40,7 @@ $mysqli = importBdd();
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les message des utilisatrices
-                        auxquel est abonnée l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>" ><?php echo $user['userAlias'] ?></a>
+                        auxquel est abonnée l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>" ><?php echo $user['userAlias'] ?></a>
                         (n° <?php echo $userId ?>)
                     </p>
                 </section>
@@ -83,7 +83,7 @@ $mysqli = importBdd();
                     <h3>
                         <time  ><?php echo $post['created'] ?></time>
                     </h3>
-                    <address><a href="wall.php?user_id=<?php echo $post['author_id'] ?>" ><?php echo $post['author_name'] ?></a></address>
+                    <address><a href="wall.php?wall_id=<?php echo $post['author_id'] ?>" ><?php echo $post['author_name'] ?></a></address>
                     <div>
                         <p><?php echo $post['content'] ?></p>
                     </div>                                            

@@ -16,7 +16,7 @@ $mysqli = importBdd();
             <img src="resoc.jpg" alt="Logo de notre réseau social"/>
             <nav id="menu">
                 <a href="news.php">Actualités</a>
-                <a href="wall.php?user_id=5">Mur</a>
+                <a href="wall.php?wall_id=5">Mur</a>
                 <a href="feed.php?user_id=5">Flux</a>
                 <a href="tags.php?tag_id=1">Mots-clés</a>
             </nav>
@@ -77,8 +77,9 @@ $mysqli = importBdd();
                             session_start();
                             // Enregistrer l'ID de l'utilisateur connecté dans la session
                             $_SESSION['connected_id'] = $user['id'];
+                            $connectedId =  $user['id'];
                              // Rediriger vers une autre page
-                            header("Location: wall.php");
+                            header("Location: wall.php?wall_id=".$connectedId);
                             exit(); // Assurez-vous d'utiliser exit() après la redirection pour arrêter l'exécution du script
                         }
                     }

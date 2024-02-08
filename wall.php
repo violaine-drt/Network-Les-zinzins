@@ -12,7 +12,7 @@
          * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
          * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
          */
-        $wallId = intval($_GET['user_id']);
+        $wallId = intval($_GET['wall_id']);
         
         $connectedId = intval($_SESSION['connected_id']);
         
@@ -99,7 +99,7 @@
                     <h3>
                         <time datetime='2020-02-01 11:12:13'><?php echo $post['created'] ?></time>
                     </h3>
-                    <address><a href="wall.php?user_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
+                    <address><a href="wall.php?wall_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
                     <div>
                         <p><?php echo $post['content'] ?></p>
                     </div>
