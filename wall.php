@@ -44,7 +44,7 @@
          */
 
         $userId = intval($_SESSION['connected_id']);
-        
+
         ?>
 
 
@@ -88,8 +88,8 @@
                     GROUP BY posts.id
                     ORDER BY posts.created DESC  
                     ";
-                  
-                  
+
+
             $lesInformations = $mysqli->query($laQuestionEnSql);
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
@@ -121,5 +121,6 @@
         </main>
     </div>
 </body>
+
 
 </html>

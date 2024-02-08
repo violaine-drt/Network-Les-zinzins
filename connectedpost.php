@@ -12,12 +12,14 @@ $user = $lesInformations->fetch_assoc()
 ?>
 <!doctype html>
 <html lang="fr">
+
 <head>
     <meta charset="utf-8">
     <title>ReSoC - Nouveau post</title>
     <meta name="author" content="Julien Falconnet">
     <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
     <header>
         <img src="resoc.jpg" alt="Logo de notre réseau social" />
@@ -88,7 +90,9 @@ $user = $lesInformations->fetch_assoc()
                 <form action="connectedpost.php" method="post">
                     <dl>
                         <dt><label for='auteur'>Auteur</label></dt>
-                        <dd><p><?php echo $user['userAlias'] ?></p></dd>
+                        <dd>
+                            <p><?php echo $user['userAlias'] ?></p>
+                        </dd>
                         <dt><label for='message'>Message</label></dt>
                         <dd><textarea name='message'></textarea></dd>
                     </dl>
@@ -98,4 +102,5 @@ $user = $lesInformations->fetch_assoc()
         </main>
     </div>
 </body>
+
 </html>
