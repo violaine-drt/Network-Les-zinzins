@@ -1,56 +1,51 @@
 <?php
 include 'importBdd.php';
-$mysqli = importBdd();                     
-             
-$connectedId = intval(  $_SESSION['connected_id']);
+$mysqli = importBdd();
+
+$connectedId = intval($_SESSION['connected_id']);
 $userId = $connectedId;
-            
-  
+
+
 ?>
 
 <!doctype html>
 <html lang="fr">
 
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Flux</title>        
-        <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
-    </head>
-    <body>
-        <header>
-            <?php include 'header.php' ?>
-        </header>
-        <div id="wrapper">
-            
-            <aside>
-                <?php
-                /**
-                 * Etape 3: récupérer le nom de l'utilisateur
-                 */
-                $laQuestionEnSql = "SELECT
+<head>
+    <meta charset="utf-8">
+    <title>ReSoC - Flux</title>
+    <meta name="author" content="Julien Falconnet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header>
+        <?php include 'header.php' ?>
+    </header>
+    <div id="wrapper">
+
+        <aside>
+            <?php
+
+            $laQuestionEnSql = "SELECT
                 users.alias AS userAlias
                 FROM users WHERE id= '$userId' ";
-                $lesInformations = $mysqli->query($laQuestionEnSql);
-                $user = $lesInformations->fetch_assoc();
-                //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
-                // echo "<pre>" . print_r($user, 1) . "</pre>";
-                ?>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
-                <section>
-                    <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez tous les message des utilisatrices
-                        auxquel est abonnée l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>" ><?php echo $user['userAlias'] ?></a>
-                        (n° <?php echo $userId ?>)
-                    </p>
-                </section>
-            </aside>
-            <main>
-                <?php
-                /**
-                 * Etape 3: récupérer tous les messages des abonnements
-                 */
-                $laQuestionEnSql = "
+            $lesInformations = $mysqli->query($laQuestionEnSql);
+            $user = $lesInformations->fetch_assoc();
+            ?>
+            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
+            <section>
+                <h3>Présentation</h3>
+                <p>Sur cette page vous trouverez tous les message des utilisatrices
+                    auxquel est abonnée l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
+                    (n° <?php echo $userId ?>)
+                </p>
+            </section>
+        </aside>
+        <main>
+            <?php
+
+            $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
                     users.alias as author_name,
@@ -67,45 +62,28 @@ $userId = $connectedId;
                     GROUP BY posts.id
                     ORDER BY posts.created DESC  
                     ";
-                $lesInformations = $mysqli->query($laQuestionEnSql);
-                if ( ! $lesInformations)
-                {
-                    echo("Échec de la requete : " . $mysqli->error);
-                }
-                while ($post = $lesInformations->fetch_assoc())
-                {
-                /**
-                 * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-                 * A vous de retrouver comment faire la boucle while de parcours...
-                 */
-                ?>    
+            $lesInformations = $mysqli->query($laQuestionEnSql);
+            if (!$lesInformations) {
+                echo ("Échec de la requete : " . $mysqli->error);
+            }
+            while ($post = $lesInformations->fetch_assoc()) {
+            ?>
                 <article>
                     <h3>
-                        <time  ><?php echo $post['created'] ?></time>
+                        <time><?php echo $post['created'] ?></time>
                     </h3>
-                    <address><a href="wall.php?wall_id=<?php echo $post['author_id'] ?>" ><?php echo $post['author_name'] ?></a></address>
+                    <address><a href="wall.php?wall_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
                     <div>
                         <p><?php echo $post['content'] ?></p>
-                    </div>                                            
+                    </div>
                     <footer>
                         <small>:cœurs: <?php echo $post['like_number'] ?></small>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
                 </article>
-                <?php } ?>
-            </main>
-        </div>
-    </body>
+            <?php } ?>
+        </main>
+    </div>
+</body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

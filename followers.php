@@ -1,10 +1,10 @@
 <?php
-    include 'importBdd.php';
-    $mysqli = importBdd();
+include 'importBdd.php';
+$mysqli = importBdd();
 
-    
-    $connectedId = intval(  $_SESSION['connected_id']);
-    $userId = $connectedId;
+
+$connectedId = intval($_SESSION['connected_id']);
+$userId = $connectedId;
 
 ?>
 
@@ -23,9 +23,7 @@
         <?php include 'header.php' ?>
     </header>
 
-    <!-- // Etape 1: récupérer l'id de l'utilisateur -->
     <?php
-
 
     $laQuestionEnSql = "SELECT 
                 users.alias AS userAlias
@@ -47,8 +45,6 @@
         <main class='contacts'>
             <?php
 
-
-            // Etape 3: récupérer le nom de l'utilisateur
             $laQuestionEnSql = "
                     SELECT users.*,
                     users.alias AS userAlias,
@@ -60,8 +56,6 @@
                     ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
 
-            // Etape 4: à vous de jouer
-            //@todo: faire la boucle while de parcours des abonnés et mettre les bonnes valeurs ci dessous 
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }

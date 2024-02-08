@@ -1,27 +1,22 @@
 <?php
-        /**
-         * Se connecter à la base de donnée
-         */
-        include 'importBdd.php';
-        $mysqli = importBdd();
-        
-        /**
-         * Etape 1: Le mur concerne un utilisateur en particulier
-         * La première étape est donc de trouver quel est l'id de l'utilisateur
-         * Celui ci est indiqué en parametre GET de la page sous la forme user_id=...
-         * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
-         * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
-         */
-        $wallId = intval($_GET['wall_id']);
-        
-        $connectedId = intval($_SESSION['connected_id']);
-        
-        if ($wallId == $connectedId) {
-            $userId = $connectedId;
-        } else {
-            $userId = $wallId;
-        }
-        ?>
+
+include 'importBdd.php';
+$mysqli = importBdd();
+
+$wallId = intval($_GET['wall_id']);
+
+$connectedId = intval($_SESSION['connected_id']);
+
+if ($wallId == $connectedId) {
+    $userId = $connectedId;
+    $myOwnWall = true;
+} else {
+    $userId = $wallId;
+    $myOwnWall = false;
+}
+
+
+?>
 
 
 <!doctype html>
@@ -39,34 +34,41 @@
         <?php include 'header.php' ?>
     </header>
     <div id="wrapper">
-        
+
 
         <aside>
             <?php
-            /**
-             * Etape 3: récupérer le nom de l'utilisateur
-             */
+
             $laQuestionEnSql = "SELECT 
                 users.alias AS userAlias
                 FROM users WHERE id= '$userId' ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
             $user = $lesInformations->fetch_assoc();
-            //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
-            // echo "<pre>" . print_r($user, 1) . "</pre>";
+            $userAlias = $user['userAlias'];
+            $isFollowing = false;
             ?>
             <img src="user.jpg" alt="Portrait de l'utilisatrice" />
             <section>
                 <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user['userAlias'] ?>
+                <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $userAlias ?>
                     (n° <?php echo $userId ?>)
                 </p>
             </section>
+            <?php
+            if (!$myOwnWall) {
+                if (!$isFollowing) {
+                    include 'btnAbonne.php';
+                } else {
+                    include 'btnDesabonne.php';
+                }
+            }
+
+            ?>
+
         </aside>
         <main>
             <?php
-            /**
-             * Etape 3: récupérer tous les messages de l'utilisatrice
-             */
+
             $laQuestionEnSql = "
                     SELECT posts.content, posts.created, 
                     users.alias as author_name, 
@@ -81,20 +83,19 @@
                     GROUP BY posts.id
                     ORDER BY posts.created DESC  
                     ";
-                  
-                  
+
+
             $lesInformations = $mysqli->query($laQuestionEnSql);
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
-
-            /**
-             * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-             */
+            ?>
+            <button><a href="connectedpost.php?user_id=<?php echo $connectedId ?>">Nouveau post<a /></button>
+            <?php
             while ($post = $lesInformations->fetch_assoc()) {
 
-                // echo "<pre>" . print_r($post, 1) . "</pre>";
             ?>
+
                 <article>
                     <h3>
                         <time datetime='2020-02-01 11:12:13'><?php echo $post['created'] ?></time>
