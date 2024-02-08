@@ -1,11 +1,13 @@
 <?php
-session_start();
+// session_start();
+include 'importBdd.php';
+$mysqli = importBdd();
 ?>
 <!doctype html>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>ReSoC - Connexion</title> 
+        <title>ReSoC - Connexion</title>
         <meta name="author" content="Julien Falconnet">
         <link rel="stylesheet" href="style.css"/>
     </head>
@@ -25,12 +27,9 @@ session_start();
                     <li><a href="followers.php?user_id=5">Mes suiveurs</a></li>
                     <li><a href="subscriptions.php?user_id=5">Mes abonnements</a></li>
                 </ul>
-
             </nav>
         </header>
-
         <div id="wrapper" >
-
             <aside>
                 <h2>Présentation</h2>
                 <p>Bienvenu sur notre réseau social.</p>
@@ -40,8 +39,6 @@ session_start();
                     <h2>Connexion</h2>
                     <?php
                     //Ouvrir une connexion avec la base de donnée.
-                    include 'importBdd.php';
-                    $mysqli = importBdd();
                     /**
                      * TRAITEMENT DU FORMULAIRE
                      */
@@ -57,9 +54,6 @@ session_start();
                         // et complétez le code ci dessous en remplaçant les ???
                         $emailAVerifier = $_POST['email'];
                         $passwdAVerifier = $_POST['motpasse'];
-
-
-
                         //Etape 4 : Petite sécurité
                         // pour éviter les injection sql : https://www.w3schools.com/sql/sql_injection.asp
                         $emailAVerifier = $mysqli->real_escape_string($emailAVerifier);
@@ -76,25 +70,20 @@ session_start();
                         // Etape 6: Vérification de l'utilisateur
                         $res = $mysqli->query($lInstructionSql);
                         $user = $res->fetch_assoc();
-                        if ( ! $user OR $user["password"] != $passwdAVerifier)
-                        {
-                            echo "La connexion a échouée. ";
-                            
-                        } else
-                        {
-                            echo "Votre connexion est un succès : " . $user['alias'] . ".";
-                            // Etape 7 : Se souvenir que l'utilisateur s'est connecté pour la suite
-                            // documentation: https://www.php.net/manual/fr/session.examples.basic.php
-                            session_write_close();
+                        if (!$user OR $user["password"] != $passwdAVerifier) {
+                            echo "La connexion a échoué.";
+                        } else {
+                            // Démarrer une session
                             session_start();
-                            $_SESSION['connected_id']=$user['id'];
-                            echo "<pre>" . print_r($_SESSION['connected_id']) . "</pre>";
-                            
+                            // Enregistrer l'ID de l'utilisateur connecté dans la session
+                            $_SESSION['connected_id'] = $user['id'];
+                             // Rediriger vers une autre page
+                            header("Location: wall.php");
+                            exit(); // Assurez-vous d'utiliser exit() après la redirection pour arrêter l'exécution du script
                         }
                     }
-                    ?>                     
+                    ?>
                     <form action="login.php" method="post">
-
                         <dl>
                             <dt><label for='email'>E-Mail</label></dt>
                             <dd><input type='email'name='email'></dd>
@@ -107,7 +96,6 @@ session_start();
                         Pas de compte?
                         <a href='registration.php'>Inscrivez-vous.</a>
                     </p>
-
                 </article>
             </main>
         </div>
