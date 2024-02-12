@@ -1,23 +1,26 @@
 <?php
-$isWorking = isset($_POST['buttonL']);
-if ($isWorking) {
-    $isLikedPost = true;
-    $lInstructionSql = "INSERT INTO likes (id, user_id, post_id) "
-        . "VALUES (NULL, "
-        . "'" . $connectedId . "', "
-        . "'" . $postId . "'"
-        . ");";
+$isLikedPost = isset($tableauDeLikes[$post['postId']]) ? $tableauDeLikes[$post['postId']] : false;
+
+if ($isLikedPost) {
+    echo "Vous avez déjà liké ce post";
+} else {
+    ?>
+    <form method="post">
+        <input type='submit' name="buttonL_<?php echo $post['postId']; ?>" value="Like">
+    </form>
+    <?php
+}
+
+if (isset($_POST['buttonL_' . $post['postId']])) {
+    $postId = $post['postId'];
+    $lInstructionSql = "INSERT INTO likes (user_id, post_id) "
+        . "VALUES ('$connectedId', '$postId')";
     $ok = $mysqli->query($lInstructionSql);
     if (!$ok) {
         echo "Le like a échoué : " . $mysqli->error;
     } else {
-        echo "Vous avez liké ce post : ";
-//redirige l'utilisateur sur la page où il était (pour réinitialiser le btn)
-        header("Location: wall.php?wall_id=" . $userId);
+        header("Location: wall.php?wall_id=$userId");
+        exit();
     }
 }
-
 ?>
-<form method="post">
-    <input type='submit' name="buttonL" value="Like">
-</form>

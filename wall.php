@@ -100,7 +100,7 @@ if ($wallId == $connectedId) {
         <main>
             <?php
 
-            $laQuestionEnSql = "
+            $chercherPostsDeCeMur = "
                     SELECT posts.content, posts.created, 
                     users.alias as author_name, 
                     users.id as author_id,
@@ -117,14 +117,17 @@ if ($wallId == $connectedId) {
                     ";
 
 
-            $lesInformations = $mysqli->query($laQuestionEnSql);
-            if (!$lesInformations) {
+            $lesPostsDeCeMur = $mysqli->query($chercherPostsDeCeMur);
+            if (!$lesPostsDeCeMur) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
             ?>
             <button><a href="connectedpost.php?user_id=<?php echo $connectedId ?>">Nouveau post<a /></button>
             <?php
-            while ($post = $lesInformations->fetch_assoc()) {
+
+            $tableauDeLikes = array();
+            while ($post = $lesPostsDeCeMur->fetch_assoc()) {
+                $postId = $post['postId'];
 
                 $ChercherLesPostsQueJaiLike = "
                 SELECT
@@ -135,36 +138,17 @@ if ($wallId == $connectedId) {
                 GROUP BY likes.post_id
                 ";
 
+
+
+                // Requête SQL pour vérifier si l'utilisateur a liké ce post spécifique
+                $compterNbDeLikes = "SELECT COUNT(*) AS like_count FROM likes WHERE user_id = $connectedId AND post_id = $postId"; // compte le nb de like sur un post donné
+                $likeResult = $mysqli->query($compterNbDeLikes);
+                $tableauAssociatifDeLikes = $likeResult->fetch_assoc();
+                $isLikedPost = $tableauAssociatifDeLikes['like_count'] > 0;
+
+                $tableauDeLikes[$postId] = $isLikedPost;
+
                 $leResultatDesPosts = $mysqli->query($ChercherLesPostsQueJaiLike);
-
-
-                // Vérifie que l'utilisateur connecté est abonné à la personne dont est affiché le mur
-                //Si la requête retourne qqch
-                if ($leResultatDesPosts) {
-                    //on initialise la variable isFollowing
-                    $isLikedPost = false;
-                    //On parcourt les résultats de la requête (liste de mes abonnements) tant qu'il y a des résultats
-                    while ($like = $leResultatDesPosts->fetch_assoc()) {
-                        echo ('postIdOfLike :');
-                        echo ($like['postIdOfLike']);
-                        echo ('postId :');
-                        echo ($post['postId']);
-                        $postId = $post['postId'];
-
-                        //si l'identité de la personne suivie est celle du mur où l'on se trouve, isFollowing devient true
-                        if (intval($like['postIdOfLike']) === intval($post['postId'])) {
-                            $isLikedPost = true;
-                            echo ('is like = true');
-                        } else {
-                            $isLikedPost = false;
-                            echo ('is like = false');
-                        }
-                    }
-                    //Si jamais la requête n'a rien retourné
-                } else {
-                    echo "Échec de la requête : " . $mysqli->error;
-                }
-
             ?>
 
                 <article>
