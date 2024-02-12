@@ -57,23 +57,23 @@ if ($wallId == $connectedId) {
                     ";
             $leResultat = $mysqli->query($ChercherLesGensQueJeSuis);
 
-// Vérifie que l'utilisateur connecté est abonné à la personne dont est affiché le mur
-        //Si la requête retourne qqch
+            // Vérifie que l'utilisateur connecté est abonné à la personne dont est affiché le mur
+            //Si la requête retourne qqch
             if ($leResultat) {
-        //on initialise la variable isFollowing
-            $isFollowing = false;
-        //On parcourt les résultats de la requête (liste de mes abonnements) tant qu'il y a des résultats
-            while ($follower = $leResultat->fetch_assoc()) {
-        
-        //si l'identité de la personne suivie est celle du mur où l'on se trouve, isFollowing devient true
+                //on initialise la variable isFollowing
+                $isFollowing = false;
+                //On parcourt les résultats de la requête (liste de mes abonnements) tant qu'il y a des résultats
+                while ($follower = $leResultat->fetch_assoc()) {
+
+                    //si l'identité de la personne suivie est celle du mur où l'on se trouve, isFollowing devient true
                     if (intval($follower['followedId']) === $wallId) {
                         $isFollowing = true;
                         echo ('is following = true');
                         break;
                     }
                 }
-        //Si jamais la requête n'a rien retourné
-            }else {
+                //Si jamais la requête n'a rien retourné
+            } else {
                 echo "Échec de la requête : " . $mysqli->error;
             }
 
@@ -104,6 +104,7 @@ if ($wallId == $connectedId) {
                     SELECT posts.content, posts.created, 
                     users.alias as author_name, 
                     users.id as author_id,
+                    posts.id as postId,
                     COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts
                     JOIN users ON  users.id=posts.user_id
@@ -125,6 +126,45 @@ if ($wallId == $connectedId) {
             <?php
             while ($post = $lesInformations->fetch_assoc()) {
 
+                $ChercherLesPostsQueJaiLike = "
+                SELECT
+                likes.post_id AS postIdOfLike
+                FROM likes 
+                LEFT JOIN users ON likes.user_id  = users.id 
+                WHERE likes.user_id='$connectedId'
+                GROUP BY likes.post_id
+                ";
+
+                $leResultatDesPosts = $mysqli->query($ChercherLesPostsQueJaiLike);
+
+
+                // Vérifie que l'utilisateur connecté est abonné à la personne dont est affiché le mur
+                //Si la requête retourne qqch
+                if ($leResultatDesPosts) {
+                    //on initialise la variable isFollowing
+                    $isLikedPost = false;
+                    //On parcourt les résultats de la requête (liste de mes abonnements) tant qu'il y a des résultats
+                    while ($like = $leResultatDesPosts->fetch_assoc()) {
+                        echo ('postIdOfLike :');
+                        echo ($like['postIdOfLike']);
+                        echo ('postId :');
+                        echo ($post['postId']);
+                        $postId = $post['postId'];
+
+                        //si l'identité de la personne suivie est celle du mur où l'on se trouve, isFollowing devient true
+                        if (intval($like['postIdOfLike']) === intval($post['postId'])) {
+                            $isLikedPost = true;
+                            echo ('is like = true');
+                        } else {
+                            $isLikedPost = false;
+                            echo ('is like = false');
+                        }
+                    }
+                    //Si jamais la requête n'a rien retourné
+                } else {
+                    echo "Échec de la requête : " . $mysqli->error;
+                }
+
             ?>
 
                 <article>
@@ -136,7 +176,13 @@ if ($wallId == $connectedId) {
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small>♥ <?php echo $post['like_number'] ?></small>
+                        <small> <?php
+                                if (!$isLikedPost) {
+                                    include 'btnLike.php';
+                                } else {
+                                    include 'btnDislike.php';
+                                }
+                                echo $post['like_number'] ?></small>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
                 </article>
