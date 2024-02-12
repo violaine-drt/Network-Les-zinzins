@@ -1,10 +1,11 @@
 <?php
 session_start();
 
+// Vérifier si un utilisateur est connecté
 if (!isset($_SESSION['connected_id'])) {
-    // Rediriger l'utilisateur vers la page de connexion
+    // Rediriger vers "login"
     header("Location: login.php");
-    exit(); // Assurez-vous de sortir du script après la redirection
+    exit(); // Ici on sort après redirection (sécurité)
 }
 
 include 'importBdd.php';
