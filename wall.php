@@ -36,18 +36,17 @@ if ($wallId == $connectedId) {
     <div id="wrapper">
 
 
-        <aside>
-            <?php
+        <?php
 
-            $laQuestionEnSql = "SELECT 
+        $laQuestionEnSql = "SELECT 
                 users.alias AS userAlias
                 FROM users WHERE id= '$userId' ";
-            $lesInformations = $mysqli->query($laQuestionEnSql);
-            $user = $lesInformations->fetch_assoc();
-            $userAlias = $user['userAlias'];
+        $lesInformations = $mysqli->query($laQuestionEnSql);
+        $user = $lesInformations->fetch_assoc();
+        $userAlias = $user['userAlias'];
 
-            //Cette requête sort un tableau des id des personnes suivies
-            $ChercherLesGensQueJeSuis = "
+        //Cette requête sort un tableau des id des personnes suivies
+        $ChercherLesGensQueJeSuis = "
                     SELECT
                     users.id AS followedId
                     FROM followers 
@@ -55,50 +54,45 @@ if ($wallId == $connectedId) {
                     WHERE followers.following_user_id='$connectedId'
                     GROUP BY users.id
                     ";
-            $leResultat = $mysqli->query($ChercherLesGensQueJeSuis);
+        $leResultat = $mysqli->query($ChercherLesGensQueJeSuis);
 
-            // Vérifie que l'utilisateur connecté est abonné à la personne dont est affiché le mur
-            //Si la requête retourne qqch
-            if ($leResultat) {
-                //on initialise la variable isFollowing
-                $isFollowing = false;
-                //On parcourt les résultats de la requête (liste de mes abonnements) tant qu'il y a des résultats
-                while ($follower = $leResultat->fetch_assoc()) {
+        // Vérifie que l'utilisateur connecté est abonné à la personne dont est affiché le mur
+        //Si la requête retourne qqch
+        if ($leResultat) {
+            //on initialise la variable isFollowing
+            $isFollowing = false;
+            //On parcourt les résultats de la requête (liste de mes abonnements) tant qu'il y a des résultats
+            while ($follower = $leResultat->fetch_assoc()) {
 
-                    //si l'identité de la personne suivie est celle du mur où l'on se trouve, isFollowing devient true
-                    if (intval($follower['followedId']) === $wallId) {
-                        $isFollowing = true;
-                        echo ('is following = true');
-                        break;
-                    }
+                //si l'identité de la personne suivie est celle du mur où l'on se trouve, isFollowing devient true
+                if (intval($follower['followedId']) === $wallId) {
+                    $isFollowing = true;
+                    break;
                 }
-                //Si jamais la requête n'a rien retourné
+            }
+
+            //Si jamais la requête n'a rien retourné
+        } else {
+            echo "Échec de la requête : " . $mysqli->error;
+        }
+
+
+        if (!$myOwnWall) {
+            include 'notMyWall.php';
+            if (!$isFollowing) {
+                include 'btnAbonne.php';
             } else {
-                echo "Échec de la requête : " . $mysqli->error;
+                include 'btnDesabonne.php';
             }
+        } else {
+            include 'myWall.php';
+        }
 
-            ?>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
-            <section>
-                <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $userAlias ?>
-                    (n° <?php echo $userId ?>)
-                </p>
-            </section>
-            <?php
-            if (!$myOwnWall) {
-                if (!$isFollowing) {
-                    include 'btnAbonne.php';
-                } else {
-                    include 'btnDesabonne.php';
-                }
-            }
+        ?>
 
-            ?>
-
-        </aside>
         <main>
             <?php
+
             $redirectionAdress = "Location: wall.php?wall_id=$userId";
 
             $chercherPostsDeCeMur = "
@@ -148,14 +142,9 @@ if ($wallId == $connectedId) {
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small> <?php
-                                if (!$isLikedPost) {
-                                    include 'btnLike.php';
-                                } else {
-                                    include 'btnDislike.php';
-                                }
-                                echo $post['like_number'] ?></small>
-                        <a href="">#<?php echo $post['taglist'] ?></a>
+                        <?php
+                        include 'footer.php'
+                        ?>
                     </footer>
                 </article>
             <?php } ?>

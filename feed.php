@@ -22,26 +22,10 @@ $userId = $connectedId;
     <header>
         <?php include 'header.php' ?>
     </header>
+
     <div id="wrapper">
+        <h2>Mon Feed</h2>
 
-        <aside>
-            <?php
-
-            $laQuestionEnSql = "SELECT
-                users.alias AS userAlias
-                FROM users WHERE id= '$userId' ";
-            $lesInformations = $mysqli->query($laQuestionEnSql);
-            $user = $lesInformations->fetch_assoc();
-            ?>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
-            <section>
-                <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez tous les message des utilisatrices
-                    auxquel est abonnée l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
-                    (n° <?php echo $userId ?>)
-                </p>
-            </section>
-        </aside>
         <main>
             <?php
 
@@ -99,6 +83,7 @@ $userId = $connectedId;
                 $leResultatDesPosts = $mysqli->query($ChercherLesPostsQueJaiLike);
 
             ?>
+
                 <article>
                     <h3>
                         <time><?php echo $post['created'] ?></time>
@@ -108,15 +93,11 @@ $userId = $connectedId;
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small><?php
-                                if (!$isLikedPost) {
-                                    include 'btnLike.php';
-                                } else {
-                                    include 'btnDislike.php';
-                                }
-                                echo $post['like_number'] ?></small>
-                        <a href="">#<?php echo $post['taglist'] ?></a>
+                        <?php
+                        include 'footer.php'
+                        ?>
                     </footer>
+
                 </article>
             <?php } ?>
         </main>

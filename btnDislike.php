@@ -6,7 +6,8 @@ if (!$isLikedPost) {
 } else {
 ?>
     <form method="post">
-        <input type='submit' name="buttonD_<?php echo $post['postId']; ?>" value="Dislike">
+        <button type="submit" name="buttonD_<?php echo $post['postId']; ?>" style="background-image: url(./aimer.png); width: 32px; height: 32px; border: none; background-color: transparent"></button>
+        <?php echo $post['like_number']; ?>
     </form>
 <?php
 }

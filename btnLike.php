@@ -2,11 +2,13 @@
 $isLikedPost = isset($tableauDeLikes[$post['postId']]) ? $tableauDeLikes[$post['postId']] : false;
 
 if ($isLikedPost) {
+
     echo "Vous avez déjà liké ce post";
 } else {
 ?>
     <form method="post">
-        <input type='submit' name="buttonL_<?php echo $post['postId']; ?>" value="Like">
+    <button type="submit" name="buttonL_<?php echo $post['postId']; ?>" style="background-image: url(./coeur.png); width: 32px; height: 32px; border: none; background-color: transparent"></button>
+    <?php echo $post['like_number'];?>
     </form>
 <?php
 }
