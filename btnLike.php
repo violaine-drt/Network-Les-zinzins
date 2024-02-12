@@ -4,11 +4,11 @@ $isLikedPost = isset($tableauDeLikes[$post['postId']]) ? $tableauDeLikes[$post['
 if ($isLikedPost) {
     echo "Vous avez déjà liké ce post";
 } else {
-    ?>
+?>
     <form method="post">
         <input type='submit' name="buttonL_<?php echo $post['postId']; ?>" value="Like">
     </form>
-    <?php
+<?php
 }
 
 if (isset($_POST['buttonL_' . $post['postId']])) {
@@ -19,7 +19,7 @@ if (isset($_POST['buttonL_' . $post['postId']])) {
     if (!$ok) {
         echo "Le like a échoué : " . $mysqli->error;
     } else {
-        header("Location: wall.php?wall_id=$userId");
+        header($redirectionAdress);
         exit();
     }
 }
