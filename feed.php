@@ -1,4 +1,13 @@
 <?php
+session_start();
+
+// Vérifier si un utilisateur est connecté
+if (!isset($_SESSION['connected_id'])) {
+    // Rediriger vers "login"
+    header("Location: login.php");
+    exit(); // Ici on sort après redirection (sécurité)
+}
+
 include 'importBdd.php';
 $mysqli = importBdd();
 
