@@ -31,19 +31,22 @@ $userId = $connectedId;
         </aside>
         <main>
             <?php
-            if ($mysqli->connect_errno) {
+            $redirectionAdress = 'Location: news.php';
+            if ($mysqli->connect_error) {
                 echo "<article>";
                 echo ("Échec de la connexion : " . $mysqli->connect_error);
                 echo ("<p>Indice: Vérifiez les parametres de <code>new mysqli(...</code></p>");
                 echo "</article>";
                 exit();
             }
+            //Récupérer les 10 derniers posts
 
-            $laQuestionEnSql = "
+            $chercherPostsDesActus = "
                     SELECT posts.content,
                     posts.created,
                     users.alias as author_name,  
                     users.id as author_id, 
+                    posts.id as postId,
                     count(likes.id) as like_number,  
                     GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts
@@ -53,20 +56,29 @@ $userId = $connectedId;
                     LEFT JOIN likes      ON likes.post_id  = posts.id 
                     GROUP BY posts.id
                     ORDER BY posts.created DESC  
-                    LIMIT 5
+                    LIMIT 10
                     ";
-            $lesInformations = $mysqli->query($laQuestionEnSql);
-            if (!$lesInformations) {
-                echo "<article>";
-                echo ("Échec de la requete : " . $mysqli->error);
-                echo ("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
-                exit();
+            //Vérifier que la requête n'échoue pas
+            $lesActualites = $mysqli->query($chercherPostsDesActus);
+            if (!$lesActualites) {
+                echo ("Échec de la requete chercherPostsDesActus: " . $mysqli->error);
             }
 
+            $tableauDeLikes = array();
+            while ($post = $lesActualites->fetch_assoc()) {
+                $postId = $post['postId'];
 
-            while ($post = $lesInformations->fetch_assoc()) {
+                // Requête SQL pour vérifier si l'utilisateur a liké ce post spécifique
+                $compterNbDeLikes = "SELECT COUNT(*) AS like_count FROM likes WHERE user_id = $connectedId AND post_id = $postId"; // compte le nb de like sur un post donné
+                $likeResult = $mysqli->query($compterNbDeLikes);
+                $tableauAssociatifDeLikes = $likeResult->fetch_assoc();
+                $isLikedPost = $tableauAssociatifDeLikes['like_count'] > 0;
 
-            ?>
+                $tableauDeLikes[$postId] = $isLikedPost;
+
+            
+                ?>
+
                 <article>
                     <h3>
                         <time><?php echo $post['created'] ?></time>
@@ -76,7 +88,13 @@ $userId = $connectedId;
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small>♥ <?php echo $post['like_number'] ?></small>
+                        <small> <?php
+                                if (!$isLikedPost) {
+                                    include 'btnLike.php';
+                                } else {
+                                    include 'btnDislike.php';
+                                }
+                                echo intval($post['like_number'])?></small>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
                 </article>
