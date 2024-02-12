@@ -3,7 +3,22 @@
 include 'importBdd.php';
 $mysqli = importBdd();
 
-$wallId = intval($_GET['wall_id']);
+// Vérifier si un utilisateur est connecté
+if (!isset($_SESSION['connected_id'])) {
+    // Rediriger vers "login"
+    header("Location: login.php");
+    exit(); // Ici on sort après redirection (sécurité)
+}
+
+// On vérifie l'ID avec l'url
+$wallId = isset($_GET['wall_id']) ? intval($_GET['wall_id']) : 0;
+
+// Vérifie si l'ID est égal à 0
+if ($wallId == 0) {
+    // Comme pas de connexion, directement sur la page de login
+    header("Location: login.php");
+    exit(); // Idem plus haut
+}
 
 $connectedId = intval($_SESSION['connected_id']);
 

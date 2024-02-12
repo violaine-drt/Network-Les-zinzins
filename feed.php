@@ -1,4 +1,10 @@
 <?php
+if (!isset($_SESSION['connected_id'])) {
+    // Rediriger l'utilisateur vers la page de connexion
+    header("Location: login.php");
+    exit(); // Assurez-vous de sortir du script après la redirection
+}
+
 include 'importBdd.php';
 $mysqli = importBdd();
 
