@@ -51,11 +51,14 @@ $userId = $connectedId;
         <main>
             <?php
 
-            $laQuestionEnSql = "
+            $chercherPostsDeCeFeed =
+
+                $lesPostsDeCeFeed = "
                     SELECT posts.content,
                     posts.created,
                     users.alias as author_name,
                     users.id as author_id,
+                    posts.id as postId,
                     count(likes.id) as like_number,  
                     GROUP_CONCAT(DISTINCT tags.label) AS taglist
                     FROM followers
@@ -68,11 +71,39 @@ $userId = $connectedId;
                     GROUP BY posts.id
                     ORDER BY posts.created DESC  
                     ";
-            $lesInformations = $mysqli->query($laQuestionEnSql);
+            $lesInformations = $mysqli->query(
+                $chercherPostsDeCeFeed
+            );
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
+
+
+            $tableauDeLikes = array();
+            $redirectionAdress = "Location: feed.php?user_id=$userId";
+
             while ($post = $lesInformations->fetch_assoc()) {
+                $postId = $post['postId'];
+
+                $ChercherLesPostsQueJaiLike = "
+                    SELECT
+                    likes.post_id AS postIdOfLike
+                    FROM likes 
+                    LEFT JOIN users ON likes.user_id  = users.id 
+                    WHERE likes.user_id='$connectedId'
+                    GROUP BY likes.post_id
+                    ";
+
+                // Requête SQL pour vérifier si l'utilisateur a liké ce post spécifique
+                $compterNbDeLikes = "SELECT COUNT(*) AS like_count FROM likes WHERE user_id = $connectedId AND post_id = $postId";
+                $likeResult = $mysqli->query($compterNbDeLikes);
+                $tableauAssociatifDeLikes = $likeResult->fetch_assoc();
+                $isLikedPost = $tableauAssociatifDeLikes['like_count'] > 0;
+
+                $tableauDeLikes[$postId] = $isLikedPost;
+
+                $leResultatDesPosts = $mysqli->query($ChercherLesPostsQueJaiLike);
+
             ?>
                 <article>
                     <h3>
@@ -83,7 +114,13 @@ $userId = $connectedId;
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small>:cœurs: <?php echo $post['like_number'] ?></small>
+                        <small><?php
+                                if (!$isLikedPost) {
+                                    include 'btnLike.php';
+                                } else {
+                                    include 'btnDislike.php';
+                                }
+                                echo $post['like_number'] ?></small>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
                 </article>

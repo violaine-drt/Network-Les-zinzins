@@ -114,6 +114,7 @@ if ($wallId == $connectedId) {
         </aside>
         <main>
             <?php
+            $redirectionAdress = "Location: wall.php?wall_id=$userId";
 
             $chercherPostsDeCeMur = "
                     SELECT posts.content, posts.created, 
@@ -144,17 +145,6 @@ if ($wallId == $connectedId) {
             while ($post = $lesPostsDeCeMur->fetch_assoc()) {
                 $postId = $post['postId'];
 
-                $ChercherLesPostsQueJaiLike = "
-                SELECT
-                likes.post_id AS postIdOfLike
-                FROM likes 
-                LEFT JOIN users ON likes.user_id  = users.id 
-                WHERE likes.user_id='$connectedId'
-                GROUP BY likes.post_id
-                ";
-
-
-
                 // Requête SQL pour vérifier si l'utilisateur a liké ce post spécifique
                 $compterNbDeLikes = "SELECT COUNT(*) AS like_count FROM likes WHERE user_id = $connectedId AND post_id = $postId"; // compte le nb de like sur un post donné
                 $likeResult = $mysqli->query($compterNbDeLikes);
@@ -162,8 +152,6 @@ if ($wallId == $connectedId) {
                 $isLikedPost = $tableauAssociatifDeLikes['like_count'] > 0;
 
                 $tableauDeLikes[$postId] = $isLikedPost;
-
-                $leResultatDesPosts = $mysqli->query($ChercherLesPostsQueJaiLike);
             ?>
 
                 <article>
