@@ -12,6 +12,7 @@
                 <li><a href="settings.php?user_id=<?php echo $connectedId ?>">Paramètres</a></li>
                 <li><a href="followers.php?user_id=<?php echo $connectedId ?>">Mes suiveurs</a></li>
                 <li><a href="subscriptions.php?user_id=<?php echo $connectedId ?>">Mes abonnements</a></li>
+                <li><a href="logout.php">Se déconnecter</a></li>
             </ul>
 
         </nav>
