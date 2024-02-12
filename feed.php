@@ -6,7 +6,6 @@ if (!isset($_SESSION['connected_id'])) {
     header("Location: login.php");
     exit(); // Assurez-vous de sortir du script après la redirection
 }
-echo "Connected user ID: ".$_SESSION['connected_id'];
 
 include 'importBdd.php';
 $mysqli = importBdd();
