@@ -1,3 +1,12 @@
+<?php
+include 'importBdd.php';
+$mysqli = importBdd();
+$connectedId = intval($_SESSION['connected_id']);
+$userId = $connectedId;
+
+?>
+
+
 <!doctype html>
 <html lang="fr">
 
@@ -16,12 +25,6 @@
         <?php
         $tagId = intval($_GET['tag_id']);
         ?>
-        <?php
-
-        include 'importBdd.php';
-        $mysqli = importBdd();
-        ?>
-
         <aside>
             <?php
 
