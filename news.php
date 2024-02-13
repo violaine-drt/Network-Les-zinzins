@@ -20,8 +20,9 @@ $userId = $connectedId;
     <header>
         <?php include 'header.php' ?>
     </header>
+    <h2>Les news</h2>
     <div id="wrapper">
-        <h2>Les news</h2>
+
         <main>
 
             <?php
@@ -75,7 +76,7 @@ $userId = $connectedId;
 
                 <article>
                     <h3>
-                        <time><?php echo $post['created'] ?></time>
+                    <time datetime='<?= $post['created'] ?>'>Le <?= date('d/m/Y', strtotime($post['created'])) ?> à <?= date('H:i:s', strtotime($post['created'])) ?></time>
                     </h3>
                     <address><a href="wall.php?wall_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
                     <div>

@@ -2,7 +2,6 @@
 $isLikedPost = isset($tableauDeLikes[$post['postId']]) ? $tableauDeLikes[$post['postId']] : false;
 
 if ($isLikedPost) {
-
     echo "Vous avez déjà liké ce post";
 } else {
 ?>

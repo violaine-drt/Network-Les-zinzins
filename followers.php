@@ -31,8 +31,9 @@ $userId = $connectedId;
     $lesInformations = $mysqli->query($laQuestionEnSql);
     $user = $lesInformations->fetch_assoc();
     ?>
+    <h2>Mes abonnés</h2>
     <div id="wrapper">
-        <h2>Mes abonnés</h2>
+
 
         <main class='contacts'>
             <?php
@@ -57,7 +58,7 @@ $userId = $connectedId;
             ?>
                 <article>
                     <img src="user.jpg" alt="blason" />
-                    <h3><?php echo $follower['userAlias'] ?></h3>
+                    <h3><a href="wall.php?wall_id=<?php echo $follower['userId']?>"><?php echo $follower['userAlias'] ?></a></h3>
                     <p>Identifiant : <?php echo $follower['userId'] ?></p>
                 </article>
             <?php } ?>

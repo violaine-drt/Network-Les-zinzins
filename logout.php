@@ -16,17 +16,16 @@ session_destroy();
 </head>
 
 <body>
+
     <div id="wrapper">
-        <aside>
-            <h2>Présentation</h2>
-            <p>Bienvenu sur notre réseau social.</p>
-        </aside>
+
+
         <main>
             <article>
-                <?php echo "Vous êtes bien déconnecté"; ?>
-                <h2>Déjà un compte ?</h2>
+                <p>Vous êtes bien déconnecté</p>
+                <h3>Déjà un compte ?</h3>
                 <p><a href="login.php">Se connecter.</a></p>
-                <h2>Pas de compte?</h2>
+                <h3>Pas de compte ?</h3>
                 <p><a href='registration.php'>Inscrivez-vous.</a></p>
             </article>
         </main>
