@@ -118,7 +118,7 @@ body > header #user:hover ul {
 #wrapper {
     display: flex;
     flex-flow: row;
-    width: 100%;
+    width: 80em;
     margin: 0 auto 2em auto;
 }
 
