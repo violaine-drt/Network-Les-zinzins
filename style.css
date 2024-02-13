@@ -32,6 +32,10 @@ a:hover {
     text-decoration: none;
 }
 
+h2{
+    margin-left: 5em;
+}
+
 body > header {
     background-color: #fff;
     display: flex;
@@ -42,11 +46,20 @@ body > header {
     border-radius: 1em;
 }
 body > header img {
+    padding-top: 0.5em;
     height: 4em;
+    width: 4em;
+}
+body > header p {
+    padding-top: 1em;
+    height: 2em;
+    width: 8em;
+    margin-right: 0.5em;
+    font-weight: 700;
 }
 body > header #menu {
     display: flex;
-    width: 50%;
+    width: 40%;
     align-items: stretch;
     border-left: 1px solid #f6d26a;
 }
@@ -95,33 +108,34 @@ body > header #user:hover ul {
     display: block;
 }
 
-
-
 #wrapper {
     display: flex;
-    flex-flow: column;
-    width: 100%;
+    flex-flow: row;
+    width: 80em;
     margin: 0 auto 2em auto;
 }
+
 #wrapper aside {
     background-color: #fff;
-    flex: 1;
-    padding: 1em;
+    flex: 2;
+    padding: 0.5em;
     border-radius: 1em;
+    margin: 16px 0px;
 }
 #wrapper aside img {
     display: block;
-    width: 50%;
+    width: 100%;
     margin: auto;
 }
 
 #wrapper main {
-    flex: 3;
+    flex: 1;
     padding-left: 1em;
 }
-button{
+
+button {
     padding: 1em;
-    margin: 0 auto 1em auto;
+    margin: 0 auto 1em 7.7em;
     border-radius: 1em;
     background-color: #fff;
     border: none;
@@ -138,7 +152,13 @@ button{
     overflow: hidden;
 }
 #wrapper main article h3 {
-    margin: 0;
+    margin: 0.5em;
+    padding: 0;
+    font-size: 1em;
+}
+
+#wrapper main article a {
+    margin-left: 0.5em;
     padding: 0;
     font-weight: bold;
     font-size: 1em;
@@ -162,7 +182,7 @@ button{
 }
 
 #wrapper main article:first-child {
-    margin-top: 1em; /* Ajoutez une marge en haut du premier article */
+/
 }
 
 #wrapper.admin {
@@ -241,8 +261,7 @@ form dl dd textarea {
     height: 15em;
 }
 
-footer{
-
+footer {
     display: inline;
 }
 
@@ -250,46 +269,46 @@ a {
     overflow: hidden;
     position: relative;
     display: inline-block;
-  }
-  
-  a::before,
-  a::after {
-   content: '';
+}
+
+a::before,
+a::after {
+    content: "";
     position: absolute;
     width: 100%;
     left: 0;
-  }
-  a::before {
+}
+a::before {
     background-color: #54b3d6;
     height: 2px;
     bottom: 0;
     transform-origin: 100% 50%;
     transform: scaleX(0);
-    transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
-  }
-  a::after {
+    transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+}
+a::after {
     content: attr(data-replace);
     height: 100%;
     top: 0;
     transform-origin: 100% 50%;
     transform: translate3d(200%, 0, 0);
-    transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+    transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1);
     color: #54b3d6;
-  }
-  
-  a:hover::before {
+}
+
+a:hover::before {
     transform-origin: 0% 50%;
     transform: scaleX(1);
-  }
-  a:hover::after {
+}
+a:hover::after {
     transform: translate3d(0, 0, 0);
-  }
+}
 
-  a {
-  text-decoration: none;
-  color: #18272F;
-  font-weight: 700;
-  vertical-align: top;
+a {
+    text-decoration: none;
+    color: #18272f;
+    font-weight: 700;
+    vertical-align: top;
 }
 
 .wrap {
@@ -297,41 +316,44 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .button {
+}
+
+.button {
     min-width: 30px;
     min-height: 6px;
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: 15px;
     text-transform: uppercase;
     letter-spacing: 1.3px;
     font-weight: 700;
     color: #313133;
-    background:#c6d7bb;
+    background: #c6d7bb;
     border: 3px solid #fff;
-    border-radius: 1000px; 
+    border-radius: 1000px;
     transition: all 0.3s ease-in-out 0s;
     cursor: pointer;
     outline: none;
     position: relative;
     padding: 10px;
-    }
-  
-  .button:hover, .button:focus {
+}
+
+.button:hover,
+.button:focus {
     color: #313133;
     transform: translateY(-6px);
-  }
-  
-  button:hover::before, button:focus::before {
+}
+
+button:hover::before,
+button:focus::before {
     opacity: 1;
-  }
-  
-  button:hover::after, button:focus::after {
+}
+
+button:hover::after,
+button:focus::after {
     animation: none;
     display: none;
-  }
+}
 
-  .heart:hover {
+.heart:hover {
     cursor: pointer;
 }

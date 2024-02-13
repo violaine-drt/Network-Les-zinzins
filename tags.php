@@ -21,50 +21,65 @@ $userId = $connectedId;
     <header>
         <?php include 'header.php' ?>
     </header>
+    <h2>Sur cette page vous trouverez les derniers messages comportant
+            le mot-clé #<?php echo $tag['taglist'] ?></h2>
     <div id="wrapper">
 
         <?php
-        $tagId = intval($_GET['tag_id']);
-        ?>
-       
-            <?php
+        $tagId = $_GET['tag_id'];
 
-            $laQuestionEnSql = "SELECT
+        $laQuestionEnSql = "SELECT
                 tags.label AS taglist
-                FROM tags WHERE id= '$tagId' ";
-            $lesInformations = $mysqli->query($laQuestionEnSql);
-            $tag = $lesInformations->fetch_assoc();
+                FROM tags WHERE label= '$tagId' ";
+        $lesInformations = $mysqli->query($laQuestionEnSql);
+        $tag = $lesInformations->fetch_assoc();
+        ?>
 
-            ?>
-    <h2>Sur cette page vous trouverez les derniers messages comportant
-                    le mot-clé #<?php echo $tag['taglist'] ?></h2>
-           
+
         <main>
             <?php
+            $redirectionAdress = "Location: tags.php?tag_id=$tagId";
+            $chercherPostsDesActus = "
+                    SELECT 
+                        posts.content,
+                        posts.created,
+                        users.alias AS author_name,  
+                        users.id AS author_id,
+                        posts.id AS postId,
+                        COUNT(DISTINCT likes.id) AS like_number,  
+                        GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+                    FROM 
+                        posts
+                    JOIN 
+                        users ON users.id = posts.user_id
+                    LEFT JOIN 
+                        posts_tags ON posts.id = posts_tags.post_id  
+                    LEFT JOIN 
+                        tags ON posts_tags.tag_id = tags.id 
+                    LEFT JOIN 
+                        likes ON likes.post_id = posts.id 
+                    WHERE 
+                        tags.label = '$tagId' 
+                    GROUP BY 
+                        posts.id
+                    ORDER BY 
+                        posts.created DESC  
+                    LIMIT 
+                        10";
 
-            $laQuestionEnSql = "
-                    SELECT posts.content,
-                    posts.created,
-                    users.alias as author_name,  
-                    users.id as author_id,
-                    count(likes.id) as like_number,  
-                    GROUP_CONCAT(DISTINCT tags.label) AS taglist 
-                    FROM posts_tags as filter 
-                    JOIN posts ON posts.id=filter.post_id
-                    JOIN users ON users.id=posts.user_id
-                    LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
-                    LEFT JOIN tags       ON posts_tags.tag_id  = tags.id 
-                    LEFT JOIN likes      ON likes.post_id  = posts.id 
-                    WHERE filter.tag_id = '$tagId' 
-                    GROUP BY posts.id
-                    ORDER BY posts.created DESC  
-                    ";
-            $lesInformations = $mysqli->query($laQuestionEnSql);
+            $lesInformations = $mysqli->query($chercherPostsDesActus);
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
             while ($post = $lesInformations->fetch_assoc()) {
+                $postId = $post['postId'];
 
+                // Requête SQL pour vérifier si l'utilisateur a liké ce post spécifique
+                $compterNbDeLikes = "SELECT COUNT(*) AS like_count FROM likes WHERE user_id = $connectedId AND post_id = $postId"; // compte le nb de like sur un post donné
+                $likeResult = $mysqli->query($compterNbDeLikes);
+                $tableauAssociatifDeLikes = $likeResult->fetch_assoc();
+                $isLikedPost = $tableauAssociatifDeLikes['like_count'] > 0;
+                $tableauDeLikes[$postId] = $isLikedPost;
             ?>
                 <article>
                     <h3>
@@ -74,13 +89,9 @@ $userId = $connectedId;
                     <div>
                         <p><?php echo $post['content'] ?></p>
                     </div>
-                    <footer>
-                        <small>♥ <?php echo $post['like_number'] ?></small>
-                        <a href="">#<?php echo $post['taglist'] ?></a>
-                    </footer>
+                    <footer><?php include 'footer.php' ?></footer>
                 </article>
             <?php } ?>
-
 
         </main>
     </div>

@@ -31,9 +31,9 @@ $userId = $connectedId;
     <header>
         <?php include 'header.php' ?>
     </header>
-
+    <h2>Mon Feed</h2>
     <div id="wrapper">
-        <h2>Mon Feed</h2>
+
 
         <main>
             <?php

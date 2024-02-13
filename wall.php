@@ -46,61 +46,62 @@ if ($wallId == $connectedId) {
     <header>
         <?php include 'header.php' ?>
     </header>
+    
+    <?php
+
+$laQuestionEnSql = "SELECT 
+        users.alias AS userAlias
+        FROM users WHERE id= '$userId' ";
+$lesInformations = $mysqli->query($laQuestionEnSql);
+$user = $lesInformations->fetch_assoc();
+$userAlias = $user['userAlias'];
+
+//Cette requête sort un tableau des id des personnes suivies
+$ChercherLesGensQueJeSuis = "
+            SELECT
+            users.id AS followedId
+            FROM followers 
+            LEFT JOIN users ON users.id=followers.followed_user_id
+            WHERE followers.following_user_id='$connectedId'
+            GROUP BY users.id
+            ";
+$leResultat = $mysqli->query($ChercherLesGensQueJeSuis);
+
+// Vérifie que l'utilisateur connecté est abonné à la personne dont est affiché le mur
+//Si la requête retourne qqch
+if ($leResultat) {
+    //on initialise la variable isFollowing
+    $isFollowing = false;
+    //On parcourt les résultats de la requête (liste de mes abonnements) tant qu'il y a des résultats
+    while ($follower = $leResultat->fetch_assoc()) {
+
+        //si l'identité de la personne suivie est celle du mur où l'on se trouve, isFollowing devient true
+        if (intval($follower['followedId']) === $wallId) {
+            $isFollowing = true;
+            break;
+        }
+    }
+
+    //Si jamais la requête n'a rien retourné
+} else {
+    echo "Échec de la requête : " . $mysqli->error;
+}
+
+
+if (!$myOwnWall) {
+    include 'notMyWall.php';
+    if (!$isFollowing) {
+        include 'btnAbonne.php';
+    } else {
+        include 'btnDesabonne.php';
+    }
+} else {
+    include 'myWall.php';
+}
+
+?>
+
     <div id="wrapper">
-
-        <?php
-
-        $laQuestionEnSql = "SELECT 
-                users.alias AS userAlias
-                FROM users WHERE id= '$userId' ";
-        $lesInformations = $mysqli->query($laQuestionEnSql);
-        $user = $lesInformations->fetch_assoc();
-        $userAlias = $user['userAlias'];
-
-        //Cette requête sort un tableau des id des personnes suivies
-        $ChercherLesGensQueJeSuis = "
-                    SELECT
-                    users.id AS followedId
-                    FROM followers 
-                    LEFT JOIN users ON users.id=followers.followed_user_id
-                    WHERE followers.following_user_id='$connectedId'
-                    GROUP BY users.id
-                    ";
-        $leResultat = $mysqli->query($ChercherLesGensQueJeSuis);
-
-        // Vérifie que l'utilisateur connecté est abonné à la personne dont est affiché le mur
-        //Si la requête retourne qqch
-        if ($leResultat) {
-            //on initialise la variable isFollowing
-            $isFollowing = false;
-            //On parcourt les résultats de la requête (liste de mes abonnements) tant qu'il y a des résultats
-            while ($follower = $leResultat->fetch_assoc()) {
-
-                //si l'identité de la personne suivie est celle du mur où l'on se trouve, isFollowing devient true
-                if (intval($follower['followedId']) === $wallId) {
-                    $isFollowing = true;
-                    break;
-                }
-            }
-
-            //Si jamais la requête n'a rien retourné
-        } else {
-            echo "Échec de la requête : " . $mysqli->error;
-        }
-
-
-        if (!$myOwnWall) {
-            include 'notMyWall.php';
-            if (!$isFollowing) {
-                include 'btnAbonne.php';
-            } else {
-                include 'btnDesabonne.php';
-            }
-        } else {
-            include 'myWall.php';
-        }
-
-        ?>
 
         <main>
             <?php
