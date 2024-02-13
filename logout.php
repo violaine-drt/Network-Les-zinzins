@@ -18,15 +18,21 @@ session_destroy();
 <body>
 
     <div id="wrapper">
-
+        <aside>
+            <p>Tu es bien déconnecté</p>
+            <h1>Nous zommes triztes de te voir partir...</h1>
+        </aside>
 
         <main>
             <article>
-                <p>Vous êtes bien déconnecté</p>
-                <h3>Déjà un compte ?</h3>
-                <p><a href="login.php">Se connecter.</a></p>
-                <h3>Pas de compte ?</h3>
-                <p><a href='registration.php'>Inscrivez-vous.</a></p>
+
+                <p>Déjà un compte ?
+                    <a href="login.php">Se connecter</a>
+                </p>
+                <p>
+                    Pas de compte ?
+                    <a href='registration.php'>S'inscrire</a>
+                </p>
             </article>
         </main>
     </div>
