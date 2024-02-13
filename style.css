@@ -118,7 +118,7 @@ body > header #user:hover ul {
 #wrapper {
     display: flex;
     flex-flow: row;
-    width: 80em;
+    width: 100%;
     margin: 0 auto 2em auto;
 }
 
@@ -383,3 +383,25 @@ button:focus::after {
     border-radius: 1em;
     border-color: #70e1f5;
 }
+
+.delete {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+ .trash {
+    color: #313133;
+    background:#c6d7bb;
+    border: none;
+    border-radius: 50px; 
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+    position: relative;
+    padding: 10px;
+    width: 2em;
+    height: 2em;
+ }

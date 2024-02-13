@@ -42,6 +42,7 @@ $userId = $connectedId;
             $laQuestionEnSql = "
                     SELECT users.*, 
                     users.alias AS userAlias,
+                    users.profile_image AS userImage,
                     users.id AS userId
                     FROM followers 
                     LEFT JOIN users ON users.id=followers.followed_user_id
@@ -57,7 +58,11 @@ $userId = $connectedId;
 
             ?>
                 <article>
-                    <img src="user.jpg" alt="blason" />
+                    <?php if (!empty($follower['userImage'])) : ?>
+                        <img src="<?php echo $follower['userImage']; ?>" alt="Photo de profil de <?php echo $follower['userAlias']; ?>" />
+                    <?php else : ?>
+                        <img src="user.jpg" alt="Photo de profil par défaut" />
+                    <?php endif; ?>
                     <h3><a href="wall.php?wall_id=<?php echo $follower['userId'] ?>"><?php echo $follower['userAlias'] ?></a></h3>
                     <p>Identifiant : <?php echo $follower['userId'] ?></p>
                 </article>
