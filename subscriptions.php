@@ -1,3 +1,10 @@
+<?php
+include 'importBdd.php';
+$mysqli = importBdd();
+$connectedId = intval($_SESSION['connected_id']);
+$userId = $connectedId;
+
+?>
 <!doctype html>
 <html lang="fr">
 
@@ -17,10 +24,7 @@
 
         <?php
 
-        include 'importBdd.php';
-        $mysqli = importBdd();
-        session_start();
-        $userId = intval(  $_SESSION['connected_id']);
+
         
         $laQuestionEnSql = "SELECT 
                     users.alias AS userAlias

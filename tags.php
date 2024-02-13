@@ -35,13 +35,11 @@ $userId = $connectedId;
             $tag = $lesInformations->fetch_assoc();
 
             ?>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
+            
             <section>
-                <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez les derniers messages comportant
-                    le mot-clé <?php echo $tag['taglist'] ?>
-                    (n° <?php echo $tagId ?>)
-                </p>
+                <h3>Sur cette page vous trouverez les derniers messages comportant
+                    le mot-clé #<?php echo $tag['taglist'] ?></h3>
+        
 
             </section>
         </aside>
