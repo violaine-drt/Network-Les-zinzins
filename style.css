@@ -23,6 +23,7 @@ body > header {
     margin: 0 auto 2em auto;
     padding: 0;
     overflow-x: hidden;
+    border-radius: 1em;
 }
 body > header img {
     height: 4em;
@@ -83,7 +84,7 @@ body > header #user:hover ul {
 #wrapper {
     display: flex;
     flex-flow: column;
-    width: 80em;
+    width: 100%;
     margin: 0 auto 2em auto;
 }
 #wrapper aside {
@@ -314,3 +315,7 @@ a {
     animation: none;
     display: none;
   }
+
+  .heart:hover {
+    cursor: pointer;
+}
