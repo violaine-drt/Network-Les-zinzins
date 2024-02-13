@@ -18,6 +18,6 @@ if ($isWorking) {
 }
 
 ?>
-<form method="post">
-    <input type='submit' name="button" value="S'abonner">
+<form class="wrap" method="post">
+    <input class="button" type='submit' name="button" value="S'abonner">
 </form>
