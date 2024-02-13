@@ -41,7 +41,7 @@ $userId = $connectedId;
                     users.alias as author_name,  
                     users.id as author_id, 
                     posts.id as postId,
-                    count(likes.id) as like_number,  
+                    count( DISTINCT likes.id) as like_number,  
                     GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts
                     JOIN users ON  users.id=posts.user_id

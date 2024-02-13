@@ -1,3 +1,11 @@
+<?php
+include 'importBdd.php';
+$mysqli = importBdd();
+$connectedId = intval($_SESSION['connected_id']);
+$userId = $connectedId;
+
+?>
+
 <!doctype html>
 <html lang="fr">
 
@@ -16,10 +24,6 @@
     <div id="wrapper" class='profile'>
         <h2>Mes Paramètres</h2>
         <?php
-
-        include 'importBdd.php';
-        $mysqli = importBdd();
-        session_start();
         $userId = intval($_SESSION['connected_id']);
 
         $laQuestionEnSql = "SELECT 
