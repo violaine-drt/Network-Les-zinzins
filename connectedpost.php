@@ -31,7 +31,7 @@ $user = $lesInformations->fetch_assoc()
 
         <main>
             <article>
-                <h2>Poster un nouveau message</h2>
+               
                 <?php
 
                 $enCoursDeTraitement = isset($_POST['message']);

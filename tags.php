@@ -6,6 +6,15 @@ $userId = $connectedId;
 
 ?>
 
+<?php
+        $tagId = $_GET['tag_id'];
+
+        $laQuestionEnSql = "SELECT
+                tags.label AS taglist
+                FROM tags WHERE label= '$tagId' ";
+        $lesInformations = $mysqli->query($laQuestionEnSql);
+        $tag = $lesInformations->fetch_assoc();
+        ?>
 
 <!doctype html>
 <html lang="fr">
@@ -25,16 +34,7 @@ $userId = $connectedId;
             le mot-clé #<?php echo $tag['taglist'] ?></h2>
     <div id="wrapper">
 
-        <?php
-        $tagId = $_GET['tag_id'];
-
-        $laQuestionEnSql = "SELECT
-                tags.label AS taglist
-                FROM tags WHERE label= '$tagId' ";
-        $lesInformations = $mysqli->query($laQuestionEnSql);
-        $tag = $lesInformations->fetch_assoc();
-        ?>
-
+       
 
         <main>
             <?php
