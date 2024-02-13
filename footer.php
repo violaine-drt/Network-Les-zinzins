@@ -5,4 +5,4 @@ if (!$isLikedPost) {
     include 'btnDislike.php';
 }
 ?>
-<a href="">#<?php echo $post['taglist'] ?></a>
+<a href="tags.php?tag_id=<?php echo $post['taglist'] ?>">#<?php echo $post['taglist'] ?></a>
