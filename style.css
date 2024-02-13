@@ -1,12 +1,15 @@
-@font-face {
-    font-family: "DM Sans";
-    src: url("./fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf") format("opentype"),
-}
 
 @font-face {
     font-family: "Dosis";
-    src: url("./fonts/Dosis/Dosis-VariableFont_wght.ttf") format("opentype");
+    src: url("./fonts/Dosis/Dosis-VariableFont_wght.ttf") format("opentype"),
 }
+
+
+@font-face {
+    font-family: "PermanentMarker";
+    src: url("./fonts/Permanent_Marker/PermanentMarker-Regular.ttf") format("opentype"),
+}
+
 
 
 
