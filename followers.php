@@ -32,16 +32,8 @@ $userId = $connectedId;
     $user = $lesInformations->fetch_assoc();
     ?>
     <div id="wrapper">
-        <aside>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
-            <section>
-                <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez la liste des personnes qui
-                    suivent les messages de l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
-                    (n° <?php echo $userId ?>)</p>
+        <h2>Mes abonnés</h2>
 
-            </section>
-        </aside>
         <main class='contacts'>
             <?php
 

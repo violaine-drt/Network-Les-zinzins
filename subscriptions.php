@@ -13,6 +13,7 @@
     <?php include 'header.php' ?>
     </header>
     <div id="wrapper">
+    <h2>Mes abonnements</h2>
 
         <?php
 
@@ -28,16 +29,7 @@
         $user = $lesInformations->fetch_assoc();
 
         ?>
-        <aside>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
-            <section>
-                <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez la liste des personnes dont
-                    l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
-                    (n° <?php echo $userId ?>) suit les messages</p>
-
-            </section>
-        </aside>
+       
         <main class='contacts'>
             <?php
             $userId = intval($_GET['user_id']);

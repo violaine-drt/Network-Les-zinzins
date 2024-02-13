@@ -32,8 +32,6 @@ if ($wallId == $connectedId) {
 
 
 ?>
-
-
 <!doctype html>
 <html lang="fr">
 
@@ -49,7 +47,6 @@ if ($wallId == $connectedId) {
         <?php include 'header.php' ?>
     </header>
     <div id="wrapper">
-
 
         <?php
 

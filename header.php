@@ -1,5 +1,5 @@
 
-<img src="resoc.jpg" alt="Logo de notre réseau social" />
+<img src="./citron.png" alt="Logo de notre réseau social" />
         <nav id="menu">
             <a href="news.php">News</a>
             <a href="wall.php?wall_id=<?php echo $connectedId ?>">Wall</a>

@@ -1,1 +1,1 @@
-<h2>Mon mur</h2>
+<h2>Mon Mur</h2>

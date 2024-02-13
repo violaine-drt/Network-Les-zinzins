@@ -12,7 +12,9 @@
     <header>
         <?php include 'header.php' ?>
     </header>
+
     <div id="wrapper" class='profile'>
+        <h2>Mes Paramètres</h2>
         <?php
 
         include 'importBdd.php';
@@ -27,15 +29,6 @@
         $user = $lesInformations->fetch_assoc();
 
         ?>
-        <aside>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
-            <section>
-                <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez les informations de l'utilisatrice <a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a>
-                    (n° <?php echo $userId ?>)</p>
-
-            </section>
-        </aside>
         <main>
             <?php
 
@@ -63,7 +56,7 @@
             while ($user = $lesInformations->fetch_assoc()) {
             ?>
                 <article class='parameters'>
-                    <h3>Mes Paramètres</h3>
+
                     <dl>
                         <dt>Pseudo</dt>
                         <dd><a href="wall.php?wall_id=<?php echo $userId ?>"><?php echo $user['userAlias'] ?></a></dd>

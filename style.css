@@ -22,22 +22,22 @@ body > header {
     overflow-x: hidden;
 }
 body > header img {
-    height: 5em;
+    height: 4em;
 }
 body > header #menu {
     display: flex;
     width: 50%;
     align-items: stretch;
-    border-left: 1px solid #99b;
+    border-left: 1px solid #f6d26a;
 }
 body > header #menu a {
     flex: 1;
     text-align: center;
     padding-top: 2em;
-    border-right: 1px solid #99b;
+    border-right: 1px solid #f6d26a;
 }
 body > header a:hover {
-    background-color: #99b;
+    background-color: #c6d7bb;
 }
 body > header ul {
     list-style: none;
@@ -45,7 +45,7 @@ body > header ul {
 body > header #user {
     margin-left: auto;
     flex: 0.2;
-    border-left: 1px solid #99b;
+    border-left: 1px solid #f6d26a;
 }
 body > header #user > a {
     display: block;
