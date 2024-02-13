@@ -19,8 +19,9 @@ $userId = $connectedId;
     <header>
     <?php include 'header.php' ?>
     </header>
-    <div id="wrapper">
     <h2>Mes abonnements</h2>
+    <div id="wrapper">
+
 
         <?php
 

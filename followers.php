@@ -31,8 +31,9 @@ $userId = $connectedId;
     $lesInformations = $mysqli->query($laQuestionEnSql);
     $user = $lesInformations->fetch_assoc();
     ?>
+    <h2>Mes abonnés</h2>
     <div id="wrapper">
-        <h2>Mes abonnés</h2>
+
 
         <main class='contacts'>
             <?php

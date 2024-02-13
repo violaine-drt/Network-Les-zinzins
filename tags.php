@@ -21,6 +21,8 @@ $userId = $connectedId;
     <header>
         <?php include 'header.php' ?>
     </header>
+    <h2>Sur cette page vous trouverez les derniers messages comportant
+            le mot-clé #<?php echo $tag['taglist'] ?></h2>
     <div id="wrapper">
 
         <?php
@@ -32,8 +34,7 @@ $userId = $connectedId;
         $lesInformations = $mysqli->query($laQuestionEnSql);
         $tag = $lesInformations->fetch_assoc();
         ?>
-        <h2>Sur cette page vous trouverez les derniers messages comportant
-            le mot-clé #<?php echo $tag['taglist'] ?></h2>
+
 
         <main>
             <?php

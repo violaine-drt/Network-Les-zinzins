@@ -25,11 +25,10 @@ $user = $lesInformations->fetch_assoc()
     <header>
         <?php include 'header.php' ?>
     </header>
+    <h2><?php echo $user['userAlias'] ?>, quelque chose à dire ? </h2>
     <div id="wrapper">
-        <aside>
-            <h2>Présentation</h2>
-            <p><?php echo $user['userAlias'] ?>, quelque chose à dire ? </p>
-        </aside>
+
+
         <main>
             <article>
                 <h2>Poster un nouveau message</h2>
@@ -61,33 +60,35 @@ $user = $lesInformations->fetch_assoc()
                     }
                 }
                 //Fonction pour repérer les mots commencant par "#" et les stocker dans un tableau tags
-                function extraireTags($text){
+                function extraireTags($text)
+                {
                     preg_match_all("/#(\w+)/", $text, $tags);
                     return $tags[1];
                 }
-                 //Fonction qui enregistre les hashtags en BDD dans la table tags
-                function enregistrerTagsDeCePost($postId, $tags){
-                   global $mysqli;
-                   global $userId;
-                   //échappement caractères spéciaux
-                   $userId = $mysqli->real_escape_string($userId);
-                   //Boucle pour parcourir le tableau de tags
-                   foreach($tags as $tag) {
+                //Fonction qui enregistre les hashtags en BDD dans la table tags
+                function enregistrerTagsDeCePost($postId, $tags)
+                {
+                    global $mysqli;
+                    global $userId;
+                    //échappement caractères spéciaux
+                    $userId = $mysqli->real_escape_string($userId);
+                    //Boucle pour parcourir le tableau de tags
+                    foreach ($tags as $tag) {
                         // Échapper les caractères spéciaux dans le tag pour éviter les injections SQL
                         $tag = $mysqli->real_escape_string($tag);
                         // Cette requête insère le tag en BDD s'il n'existe pas déjà
-                         $query = "INSERT INTO tags (label) VALUES ('$tag') ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id)";
+                        $query = "INSERT INTO tags (label) VALUES ('$tag') ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id)";
                         $mysqli->query($query);
-                          // On récupère l'id du tag, maintenant qu'on est sûrs qu'il est en BDD
-                          $tagIdResult = $mysqli->query("SELECT id FROM tags WHERE label = '$tag'");
-                          //Extrait l'id du tag
-                          $tagId = $tagIdResult->fetch_assoc()['id'];
-                          //On enregistre le tag dans la table de liaison entre les posts et les tags
-                          $mysqli->query("INSERT INTO posts_tags (post_id, tag_id) VALUES ($postId, $tagId)");
-                        }
-                   }
-            
-                
+                        // On récupère l'id du tag, maintenant qu'on est sûrs qu'il est en BDD
+                        $tagIdResult = $mysqli->query("SELECT id FROM tags WHERE label = '$tag'");
+                        //Extrait l'id du tag
+                        $tagId = $tagIdResult->fetch_assoc()['id'];
+                        //On enregistre le tag dans la table de liaison entre les posts et les tags
+                        $mysqli->query("INSERT INTO posts_tags (post_id, tag_id) VALUES ($postId, $tagId)");
+                    }
+                }
+
+
                 ?>
                 <form action="connectedpost.php" method="post">
                     <dl>

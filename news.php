@@ -20,8 +20,9 @@ $userId = $connectedId;
     <header>
         <?php include 'header.php' ?>
     </header>
+    <h2>Les news</h2>
     <div id="wrapper">
-        <h2>Les news</h2>
+
         <main>
 
             <?php

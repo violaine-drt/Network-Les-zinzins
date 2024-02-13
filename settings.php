@@ -20,9 +20,9 @@ $userId = $connectedId;
     <header>
         <?php include 'header.php' ?>
     </header>
-
+    <h2>Mes Paramètres</h2>
     <div id="wrapper" class='profile'>
-        <h2>Mes Paramètres</h2>
+
         <?php
         $userId = intval($_SESSION['connected_id']);
 
