@@ -116,6 +116,9 @@ body > header #user:hover ul {
     display: block;
 }
 
+h1{
+        margin-left: 0.5em;
+}
 #wrapper {
     display: flex;
     flex-flow: row;
@@ -155,19 +158,19 @@ button {
 #wrapper main article {
     background-color: #fff;
     padding: 1em;
+    margin-top: 1em;
     margin-bottom: 1em;
     border-radius: 1em;
     clear: both;
     overflow: hidden;
 }
 #wrapper main article h3 {
-
+    margin-top: 0.5em;
     padding: 0;
     font-size: 1em;
 }
 
 #wrapper main article a {
-
     padding: 0;
     font-weight: bold;
     font-size: 1em;
@@ -188,10 +191,6 @@ button {
 }
 #wrapper main article footer small {
     float: left;
-}
-
-#wrapper main article:first-child {
-/
 }
 
 #wrapper.admin {

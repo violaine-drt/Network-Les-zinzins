@@ -16,16 +16,16 @@ session_destroy();
 </head>
 
 <body>
-<h1>Les zinzinzs zestés, un rézeau zympa !</h1>
+
     <div id="wrapper">
-        <aside><img src="./apercu.png" alt="apercu du réseau"></aside>
+
 
         <main>
             <article>
                 <p>Vous êtes bien déconnecté</p>
                 <h3>Déjà un compte ?</h3>
                 <p><a href="login.php">Se connecter.</a></p>
-                <h3>Pas de compte?</h3>
+                <h3>Pas de compte ?</h3>
                 <p><a href='registration.php'>Inscrivez-vous.</a></p>
             </article>
         </main>

@@ -10,13 +10,10 @@
 
 <body>
 
+<h1>Les zinzins zestés, un rézeau zympa !</h1>
 
     <div id="wrapper">
-
-        <aside>
-            <h2>Présentation</h2>
-            <p>Bienvenu sur notre réseau social.</p>
-        </aside>
+        <aside><img src="./apercu.png" alt="apercu du réseau"></aside>
         <main>
             <article>
                 <h2>Inscription</h2>
@@ -65,6 +62,8 @@
                     </dl>
                     <input type='submit'>
                 </form>
+                <h3>Déjà inscrit ?</h3>
+                <p><a href="login.php">Se connecter</p>
             </article>
         </main>
     </div>
