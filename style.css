@@ -5,12 +5,15 @@ body {
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
+* {
+    color: #313133;
+}
+
 a {
     text-decoration: none;
-    color: black;
 }
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 body > header {
@@ -20,6 +23,7 @@ body > header {
     margin: 0 auto 2em auto;
     padding: 0;
     overflow-x: hidden;
+    border-radius: 1em;
 }
 body > header img {
     height: 4em;
@@ -38,6 +42,7 @@ body > header #menu a {
 }
 body > header a:hover {
     background-color: #c6d7bb;
+    color: white;
 }
 body > header ul {
     list-style: none;
@@ -79,7 +84,7 @@ body > header #user:hover ul {
 #wrapper {
     display: flex;
     flex-flow: column;
-    width: 80em;
+    width: 100%;
     margin: 0 auto 2em auto;
 }
 #wrapper aside {
@@ -97,11 +102,10 @@ body > header #user:hover ul {
 #wrapper main {
     flex: 3;
     padding-left: 1em;
-    height: 100%;
 }
 button{
     padding: 1em;
-    margin-bottom: 1em;
+    margin: 0 auto 1em auto;
     border-radius: 1em;
     background-color: #fff;
     border: none;
@@ -114,6 +118,8 @@ button{
     padding: 1em;
     margin-bottom: 1em;
     border-radius: 1em;
+    clear: both;
+    overflow: hidden;
 }
 #wrapper main article h3 {
     margin: 0;
@@ -137,6 +143,10 @@ button{
 }
 #wrapper main article footer small {
     float: left;
+}
+
+#wrapper main article:first-child {
+    margin-top: 1em; /* Ajoutez une marge en haut du premier article */
 }
 
 #wrapper.admin {
@@ -218,4 +228,94 @@ form dl dd textarea {
 footer{
 
     display: inline;
+}
+
+a {
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+  }
+  
+  a::before,
+  a::after {
+   content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+  }
+  a::before {
+    background-color: #54b3d6;
+    height: 2px;
+    bottom: 0;
+    transform-origin: 100% 50%;
+    transform: scaleX(0);
+    transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  a::after {
+    content: attr(data-replace);
+    height: 100%;
+    top: 0;
+    transform-origin: 100% 50%;
+    transform: translate3d(200%, 0, 0);
+    transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+    color: #54b3d6;
+  }
+  
+  a:hover::before {
+    transform-origin: 0% 50%;
+    transform: scaleX(1);
+  }
+  a:hover::after {
+    transform: translate3d(0, 0, 0);
+  }
+
+  a {
+  text-decoration: none;
+  color: #18272F;
+  font-weight: 700;
+  vertical-align: top;
+}
+
+.wrap {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button {
+    min-width: 30px;
+    min-height: 6px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    font-weight: 700;
+    color: #313133;
+    background:#c6d7bb;
+    border: 3px solid #fff;
+    border-radius: 1000px; 
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    padding: 10px;
+    }
+  
+  .button:hover, .button:focus {
+    color: #313133;
+    transform: translateY(-6px);
+  }
+  
+  button:hover::before, button:focus::before {
+    opacity: 1;
+  }
+  
+  button:hover::after, button:focus::after {
+    animation: none;
+    display: none;
+  }
+
+  .heart:hover {
+    cursor: pointer;
 }

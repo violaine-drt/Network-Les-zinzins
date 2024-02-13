@@ -14,6 +14,6 @@ if ($isWorking) {
 }
 
 ?>
-<form method="post">
-    <input type='submit' name="button" value="Se désabonner">
+<form class="wrap" method="post">
+    <input class="button" type='submit' name="button" value="Se désabonner">
 </form>
