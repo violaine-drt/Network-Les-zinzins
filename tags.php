@@ -22,10 +22,11 @@ $userId = $connectedId;
         <?php include 'header.php' ?>
     </header>
     <div id="wrapper">
+
         <?php
         $tagId = intval($_GET['tag_id']);
         ?>
-        <aside>
+       
             <?php
 
             $laQuestionEnSql = "SELECT
@@ -35,14 +36,9 @@ $userId = $connectedId;
             $tag = $lesInformations->fetch_assoc();
 
             ?>
-            
-            <section>
-                <h3>Sur cette page vous trouverez les derniers messages comportant
-                    le mot-clé #<?php echo $tag['taglist'] ?></h3>
-        
-
-            </section>
-        </aside>
+    <h2>Sur cette page vous trouverez les derniers messages comportant
+                    le mot-clé #<?php echo $tag['taglist'] ?></h2>
+           
         <main>
             <?php
 
