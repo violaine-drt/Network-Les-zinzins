@@ -1,6 +1,7 @@
 <?php
-session_start();
 
+include 'importBdd.php';
+$mysqli = importBdd();
 // Vérifier si un utilisateur est connecté
 if (!isset($_SESSION['connected_id'])) {
     // Rediriger vers "login"
@@ -8,8 +9,7 @@ if (!isset($_SESSION['connected_id'])) {
     exit(); // Ici on sort après redirection (sécurité)
 }
 
-include 'importBdd.php';
-$mysqli = importBdd();
+
 
 $connectedId = intval($_SESSION['connected_id']);
 $userId = $connectedId;

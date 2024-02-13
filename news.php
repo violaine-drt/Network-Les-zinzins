@@ -21,7 +21,9 @@ $userId = $connectedId;
         <?php include 'header.php' ?>
     </header>
     <div id="wrapper">
+        <h2>Les news</h2>
         <main>
+
             <?php
             $redirectionAdress = 'Location: news.php';
             if ($mysqli->connect_error) {
@@ -68,8 +70,8 @@ $userId = $connectedId;
 
                 $tableauDeLikes[$postId] = $isLikedPost;
 
-            
-                ?>
+
+            ?>
 
                 <article>
                     <h3>
@@ -80,14 +82,9 @@ $userId = $connectedId;
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small> <?php
-                                if (!$isLikedPost) {
-                                    include 'btnLike.php';
-                                } else {
-                                    include 'btnDislike.php';
-                                }
-                                echo intval($post['like_number'])?></small>
-                        <a href="">#<?php echo $post['taglist'] ?></a>
+                        <?php
+                        include 'footer.php'
+                        ?>
                     </footer>
                 </article>
             <?php
