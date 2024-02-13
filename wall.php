@@ -128,9 +128,7 @@ if ($wallId == $connectedId) {
             if (!$lesPostsDeCeMur) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
-            ?>
-            <button><a href="connectedpost.php?user_id=<?php echo $connectedId ?>">Nouveau post<a /></button>
-            <?php
+
 
             $tableauDeLikes = array();
             while ($post = $lesPostsDeCeMur->fetch_assoc()) {

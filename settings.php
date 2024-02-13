@@ -73,6 +73,11 @@ $userId = $connectedId;
                         <dt>Nombre de "J'aime" reçus</dt>
                         <dd><?php echo $user['totalrecieved'] ?></dd>
                     </dl>
+                    <h3>Importer une photo de profil</h3>
+                    <form action="upload.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                        <input type="submit" value="Uploader l'image" name="submit">
+                    </form>
                 </article>
             <?php } ?>
         </main>

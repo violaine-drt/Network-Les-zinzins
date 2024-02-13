@@ -99,14 +99,15 @@ body > header #user:hover ul {
     padding-left: 1em;
     height: 100%;
 }
-#wrapper main button{
+button{
     padding: 1em;
     margin-bottom: 1em;
     border-radius: 1em;
     background-color: #fff;
     border: none;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-
+    width: 8em;
+    font-size: 1em;
 }
 #wrapper main article {
     background-color: #fff;
