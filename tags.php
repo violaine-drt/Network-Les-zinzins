@@ -82,7 +82,9 @@ $userId = $connectedId;
                 $tableauDeLikes[$postId] = $isLikedPost;
             ?>
                 <article>
-                    <h3><time datetime='2020-02-01 11:12:13'><?php echo $post['created'] ?></time></h3>
+                    <h3>
+                    <time datetime='<?= $post['created'] ?>'>Le <?= date('d/m/Y', strtotime($post['created'])) ?> à <?= date('H:i:s', strtotime($post['created'])) ?></time>
+                    </h3>
                     <address><a href="wall.php?wall_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
                     <div>
                         <p><?php echo $post['content'] ?></p>
