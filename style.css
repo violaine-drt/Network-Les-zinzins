@@ -167,7 +167,7 @@ button {
 }
 
 #wrapper main article a {
-    padding: 0;
+    padding: 2px;
     font-weight: bold;
     font-size: 1em;
 }
@@ -179,7 +179,7 @@ button {
     margin-bottom: 1em;
 }
 #wrapper main article p {
-
+    font-size: large;
 }
 #wrapper main article footer {
     margin-top: 1em;

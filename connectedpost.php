@@ -52,7 +52,7 @@ $user = $lesInformations->fetch_assoc()
                     if (!$ok) {
                         echo "Impossible d'ajouter le message: " . $mysqli->error;
                     } else {
-                        echo "Message posté, " . $user['userAlias'];
+                        echo "Message posté ! ";
                         // Récupérer l'id du post que l'on vient d'ajouter (la propriété insert_id retourne l'id de la dernière ligne insérée en requete)
                         $leDernierPostAjouté = $mysqli->insert_id;
                         // On utilise la fonction saveTags pour enregistrer les tags en les insérant en BDD. Cette fonction prend en argument l'id du post et un tableau de tags
@@ -99,7 +99,7 @@ $user = $lesInformations->fetch_assoc()
                         <dt><label for='message'>Message</label></dt>
                         <dd><textarea name='message'></textarea></dd>
                     </dl>
-                    <input type='submit' value='Poster'>
+                    <input type='submit' value='Poster' class="inputbtn">
                 </form>
             </article>
         </main>
