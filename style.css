@@ -1,11 +1,14 @@
-@font-face {
-    font-family: "DM Sans";
-    src: url("./fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf") format("opentype"),
-}
+
 
 @font-face {
     font-family: "Dosis";
     src: url("./fonts/Dosis/Dosis-VariableFont_wght.ttf") format("opentype"),
+}
+
+
+@font-face {
+    font-family: "PermanentMarker";
+    src: url("./fonts/Permanent_Marker/PermanentMarker-Regular.ttf") format("opentype"),
 }
 
 
@@ -34,6 +37,11 @@ a:hover {
 
 h2{
     margin-left: 5em;
+    font-family: "PermanentMarker","Sixtyfour", "Dosis", Arial, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 2em;
+    font-style: normal;
 }
 
 body > header {
@@ -135,13 +143,14 @@ body > header #user:hover ul {
 
 button {
     padding: 1em;
-    margin: 0 auto 1em 7.7em;
+    margin: 0 auto 1em 45%;
     border-radius: 1em;
     background-color: #fff;
     border: none;
     font-family: "Dosis", "Arial Narrow", Arial, sans-serif;
     width: 8em;
     font-size: 1em;
+
 }
 #wrapper main article {
     background-color: #fff;
@@ -152,13 +161,13 @@ button {
     overflow: hidden;
 }
 #wrapper main article h3 {
-    margin: 0.5em;
+
     padding: 0;
     font-size: 1em;
 }
 
 #wrapper main article a {
-    margin-left: 0.5em;
+
     padding: 0;
     font-weight: bold;
     font-size: 1em;
@@ -171,7 +180,7 @@ button {
     margin-bottom: 1em;
 }
 #wrapper main article p {
-    margin: 0;
+
 }
 #wrapper main article footer {
     margin-top: 1em;

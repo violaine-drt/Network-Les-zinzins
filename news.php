@@ -14,6 +14,7 @@ $userId = $connectedId;
     <title>ReSoC - Actualités</title>
     <meta name="author" content="Julien Falconnet">
     <link rel="stylesheet" href="style.css" />
+    
 </head>
 
 <body>
