@@ -4,6 +4,46 @@ $mysqli = importBdd();
 $connectedId = intval($_SESSION['connected_id']);
 $userId = $connectedId;
 
+$message = ""; // Initialisation du message (erreur ou succès)
+$messageClass = ""; // Initialisation de la classe du message pour un CSS en début de page
+                    // Pas une bonne pratique mais ça permet de le forcer dans ce cas précis
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['change_password'])) {
+        $oldPassword = $_POST['old_password'];
+        $newPassword = $_POST['new_password'];
+        $confirmPassword = $_POST['confirm_password'];
+
+        // On vérifie si l'ancien mot de passe est correct
+        $userId = intval($_SESSION['connected_id']);
+        $laQuestionEnSql = "SELECT password FROM users WHERE id = '$userId'";
+        $result = $mysqli->query($laQuestionEnSql);
+        $user = $result->fetch_assoc();
+        $hashedPassword = $user['password'];
+
+        if ($hashedPassword === md5($oldPassword)) {
+            // Comme dans Registration on vérifie si les 2 mots de passe sont les mêmes
+            if ($newPassword === $confirmPassword) {
+                // On met à jour le mot de passe dans la base de données
+                $hashedNewPassword = md5($newPassword);
+                $updateQuery = "UPDATE users SET password = '$hashedNewPassword' WHERE id = '$userId'";
+                if ($mysqli->query($updateQuery) === TRUE) {
+                    $message = "Mot de passe mis à jour avec succès.";
+                    $messageClass = "success";
+                } else {
+                    $message = "Erreur lors de la mise à jour du mot de passe: " . $mysqli->error;
+                    $messageClass = "error";
+                }
+            } else {
+                $message = "Les nouveaux mots de passe ne correspondent pas.";
+                $messageClass = "error";
+            }
+        } else {
+            $message = "L'ancien mot de passe est incorrect.";
+            $messageClass = "error";
+        }
+    }
+}
 ?>
 
 <!doctype html>
@@ -14,6 +54,10 @@ $userId = $connectedId;
     <title>ReSoC - Paramètres</title>
     <meta name="author" content="Julien Falconnet">
     <link rel="stylesheet" href="style.css" />
+    <style>
+        .success {color: green;}
+        .error {color: red;}
+    </style>
 </head>
 
 <body>
@@ -80,6 +124,23 @@ $userId = $connectedId;
                     </form>
                 </article>
             <?php } ?>
+            <article class='parameters'>
+            <?php
+            if (isset($message)) {
+                echo "<p class='$messageClass'>$message</p>";
+            }
+            ?>
+                <h3>Changer le mot de passe</h3>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <label for="old_password">Ancien mot de passe :</label>
+                    <input type="password" name="old_password" required><br><br>
+                    <label for="new_password">Nouveau mot de passe :</label>
+                    <input type="password" name="new_password" required><br><br>
+                    <label for="confirm_password">Confirmez le nouveau mot de passe :</label>
+                    <input type="password" name="confirm_password" required><br><br>
+                    <input type="submit" name="change_password" value="Changer le mot de passe">
+                </form>
+            </article>
         </main>
     </div>
 </body>

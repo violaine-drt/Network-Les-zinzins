@@ -25,8 +25,12 @@
                     $new_email = $_POST['email'];
                     $new_alias = $_POST['pseudo'];
                     $new_passwd = $_POST['motpasse'];
+                    $confirm_passwd = $_POST['confirmer_motpasse'];
 
-
+                    // On compare les 2 entrées
+                    if ($new_passwd !== $confirm_passwd) {
+                        echo "<p style='color:red;'>Les mots de passe ne correspondent pas.</p>";
+                    } else {
                     include 'importBdd.php';
                     $mysqli = importBdd();
                     //  Petite sécurité pour éviter les injection sql : https://www.w3schools.com/sql/sql_injection.asp
@@ -50,6 +54,7 @@
                         echo " <a href='login.php'>Connectez-vous.</a>";
                     }
                 }
+            }
                 ?>
                 <form action="registration.php" method="post">
                     <dl>
@@ -59,6 +64,8 @@
                         <dd><input type='email' name='email'class="inputtxt"></dd>
                         <dt><label for='motpasse'>Mot de passe</label></dt>
                         <dd><input type='password' name='motpasse'class="inputtxt"></dd>
+                        <dt><label for='motpasse'>Confirmation</label></dt>
+                        <dd><input type='password' name='confirmer_motpasse'class="inputtxt"></dd>
                     </dl>
                     <input type='submit' class="inputbtn">
                 </form>
