@@ -1,8 +1,24 @@
+@font-face {
+    font-family: "DM Sans";
+    src: url("./fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf") format("opentype"),
+}
+
+@font-face {
+    font-family: "Dosis";
+    src: url("./fonts/Dosis/Dosis-VariableFont_wght.ttf") format("opentype"),
+}
+
+
+
 body {
     background: #70e1f5; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #ffd194, #70e1f5); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #ffd194, #70e1f5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-family: "Dosis", "Arial Narrow", Arial, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  
 }
 
 * {
@@ -109,7 +125,7 @@ button{
     border-radius: 1em;
     background-color: #fff;
     border: none;
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-family: "Dosis", "Arial Narrow", Arial, sans-serif;
     width: 8em;
     font-size: 1em;
 }
@@ -124,7 +140,7 @@ button{
 #wrapper main article h3 {
     margin: 0;
     padding: 0;
-    font-weight: normal;
+    font-weight: bold;
     font-size: 1em;
 }
 #wrapper main article time {
