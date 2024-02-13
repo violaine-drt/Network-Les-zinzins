@@ -40,6 +40,13 @@ if ($wallId == $connectedId) {
     <title>ReSoC - Mur</title>
     <meta name="author" content="Julien Falconnet">
     <link rel="stylesheet" href="style.css" />
+    <script>
+        function deletePost(postId) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer ce post ?")) {
+                window.location.href = "delete_post.php?post_id=" + postId;
+            }
+        }
+    </script>
 </head>
 
 <body>
