@@ -2,7 +2,7 @@
 <img src="./citron.png" alt="Logo de notre réseau social" />
 <p>Les Zinzins Zestés</p>
         <nav id="menu">
-            <a href="news.php">News</a>
+            <a href="news.php">Newz</a>
             <a href="wall.php?wall_id=<?php echo $connectedId ?>">Wall</a>
             <a href="feed.php?user_id=<?php echo $connectedId ?>">Feed</a>
         </nav>

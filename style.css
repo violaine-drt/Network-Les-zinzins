@@ -1,12 +1,15 @@
-@font-face {
-    font-family: "DM Sans";
-    src: url("./fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf") format("opentype"),
-}
 
 @font-face {
     font-family: "Dosis";
     src: url("./fonts/Dosis/Dosis-VariableFont_wght.ttf") format("opentype"),
 }
+
+
+@font-face {
+    font-family: "PermanentMarker";
+    src: url("./fonts/Permanent_Marker/PermanentMarker-Regular.ttf") format("opentype"),
+}
+
 
 
 
@@ -18,7 +21,6 @@ body {
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-  
 }
 
 * {
@@ -32,8 +34,13 @@ a:hover {
     text-decoration: none;
 }
 
-h2{
+h2 {
     margin-left: 5em;
+    font-family: "PermanentMarker","Sixtyfour", "Dosis", Arial, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 2em;
+    font-style: normal;
 }
 
 body > header {
@@ -108,13 +115,10 @@ body > header #user:hover ul {
     display: block;
 }
 
-h1{
-        margin-left: 0.5em;
-}
 #wrapper {
     display: flex;
     flex-flow: row;
-    width: 80em;
+    width: 100%;
     margin: 0 auto 2em auto;
 }
 
@@ -138,13 +142,14 @@ h1{
 
 button {
     padding: 1em;
-    margin: 0 auto 1em 7.7em;
+    margin: 0 auto 1em 45%;
     border-radius: 1em;
     background-color: #fff;
     border: none;
     font-family: "Dosis", "Arial Narrow", Arial, sans-serif;
     width: 8em;
     font-size: 1em;
+
 }
 #wrapper main article {
     background-color: #fff;
@@ -172,9 +177,6 @@ button {
 #wrapper main article address {
     text-align: right;
     margin-bottom: 1em;
-}
-#wrapper main article p {
-    margin: 0;
 }
 #wrapper main article footer {
     margin-top: 1em;
@@ -355,6 +357,28 @@ button:focus::after {
 
 .heart:hover {
     cursor: pointer;
+}
+
+.inputbtn {
+    padding: 0.5em;
+    margin: 0 auto 1em 61%;
+    border-radius: 1em;
+    background-color: #fff;
+    font-family: "Dosis", "Arial Narrow", Arial, sans-serif;
+    width: 6em;
+    font-size: 1em;
+    background-image: linear-gradient(to right, #ffd194, #70e1f5);
+    background-size: 200% 200%;
+    transition: background-position 0.6s ease;
+}
+.inputbtn:hover {
+    background-position: right bottom;
+}
+
+.inputtxt {
+    padding: 0.3em;
+    border-radius: 1em;
+    border-color: #70e1f5;
 }
 
 .delete {

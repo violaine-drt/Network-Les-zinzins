@@ -15,8 +15,8 @@ $mysqli = importBdd();
 <body>
     <div id="wrapper">
         <aside>
-            <h2>Présentation</h2>
-            <p>Bienvenu sur notre réseau social.</p>
+            <h1>Bonzour !</h1>
+            <p>Bienvenue zur notre rézeau zozial</p>
         </aside>
         <main>
             <article>
@@ -25,7 +25,6 @@ $mysqli = importBdd();
                 $enCoursDeTraitement = isset($_POST['email']);
                 if ($enCoursDeTraitement) {
 
-                    echo "<pre>" . print_r($_POST, 1) . "</pre>";
                     $emailAVerifier = $_POST['email'];
                     $passwdAVerifier = $_POST['motpasse'];
                     //  Petite sécurité pour éviter les injection sql : https://www.w3schools.com/sql/sql_injection.asp
@@ -54,15 +53,15 @@ $mysqli = importBdd();
                 <form action="login.php" method="post">
                     <dl>
                         <dt><label for='email'>E-Mail</label></dt>
-                        <dd><input type='email' name='email'></dd>
+                        <dd><input type='email' name='email' class="inputtxt"></dd>
                         <dt><label for='motpasse'>Mot de passe</label></dt>
-                        <dd><input type='password' name='motpasse'></dd>
+                        <dd><input type='password' name='motpasse' class="inputtxt"></dd>
                     </dl>
-                    <input type='submit'>
+                    <input type='submit' class="inputbtn">
                 </form>
                 <p>
                     Pas de compte?
-                    <a href='registration.php'>Inscrivez-vous.</a>
+                    <a href='registration.php'>S'inscrire</a>
                 </p>
             </article>
         </main>

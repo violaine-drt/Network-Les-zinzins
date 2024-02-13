@@ -54,16 +54,16 @@
                 <form action="registration.php" method="post">
                     <dl>
                         <dt><label for='pseudo'>Pseudo</label></dt>
-                        <dd><input type='text' name='pseudo'></dd>
+                        <dd><input type='text' name='pseudo' class="inputtxt"></dd>
                         <dt><label for='email'>E-Mail</label></dt>
-                        <dd><input type='email' name='email'></dd>
+                        <dd><input type='email' name='email'class="inputtxt"></dd>
                         <dt><label for='motpasse'>Mot de passe</label></dt>
-                        <dd><input type='password' name='motpasse'></dd>
+                        <dd><input type='password' name='motpasse'class="inputtxt"></dd>
                     </dl>
-                    <input type='submit'>
+                    <input type='submit' class="inputbtn">
                 </form>
-                <h3>Déjà inscrit ?</h3>
-                <p><a href="login.php">Se connecter</p>
+                <p>
+                Déjà inscrit ? <a href="login.php">Se connecter</p>
             </article>
         </main>
     </div>
