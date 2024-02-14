@@ -132,6 +132,7 @@ if ($wallId == $connectedId) {
                     ";
 
 
+
             $lesPostsDeCeMur = $mysqli->query($chercherPostsDeCeMur);
             if (!$lesPostsDeCeMur) {
                 echo ("Échec de la requete : " . $mysqli->error);
@@ -169,7 +170,8 @@ if ($wallId == $connectedId) {
                     </footer>
 
                 </article>
-            <?php } ?>
+            <?php 
+        } ?>
 
 
         </main>

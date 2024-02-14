@@ -4,6 +4,16 @@ $mysqli = importBdd();
 $connectedId = intval($_SESSION['connected_id']);
 $userId = $connectedId;
 
+$wallId = isset($_GET['wall_id']) ? intval($_GET['wall_id']) : 0;
+
+if ($wallId == $connectedId) {
+    $userId = $connectedId;
+    $myOwnWall = true;
+} else {
+    $myOwnWall = false;
+}
+
+
 ?>
 
 <?php
@@ -80,6 +90,7 @@ $userId = $connectedId;
                 $tableauAssociatifDeLikes = $likeResult->fetch_assoc();
                 $isLikedPost = $tableauAssociatifDeLikes['like_count'] > 0;
                 $tableauDeLikes[$postId] = $isLikedPost;
+                $taglist = $post['taglist'];
             ?>
                 <article>
                     <h3>

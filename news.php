@@ -81,7 +81,7 @@ if ($wallId == $connectedId) {
                 $isLikedPost = $tableauAssociatifDeLikes['like_count'] > 0;
 
                 $tableauDeLikes[$postId] = $isLikedPost;
-
+                $taglist = $post['taglist'];
 
                 $taglist = $post['taglist'];
 
