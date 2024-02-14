@@ -27,6 +27,7 @@ if ($post['taglist']) {
     ?>
     <a href="tags.php?tag_id=<?php echo $post['taglist'] ?>">#<?php echo $post['taglist'] ?></a>
 <?php
+    }
 }
 
 ?>

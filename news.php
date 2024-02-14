@@ -83,6 +83,8 @@ if ($wallId == $connectedId) {
                 $tableauDeLikes[$postId] = $isLikedPost;
 
 
+                $taglist = $post['taglist'];
+
             ?>
 
                 <article>
