@@ -4,6 +4,16 @@ $mysqli = importBdd();
 $connectedId = intval($_SESSION['connected_id']);
 $userId = $connectedId;
 
+$wallId = isset($_GET['wall_id']) ? intval($_GET['wall_id']) : 0;
+
+if ($wallId == $connectedId) {
+    $userId = $connectedId;
+    $myOwnWall = true;
+} else {
+    $userId = $wallId;
+    $myOwnWall = false;
+}
+
 ?>
 
 <!doctype html>
