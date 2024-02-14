@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Mot de passe confirmé, suppression du compte
             $deleteQuery = "DELETE FROM users WHERE id = '$userId'";
             if ($mysqli->query($deleteQuery) === TRUE) {
-                // Déconnexion de l'utilisateur et redirection vers une page d'accueil par exemple
+                // Déconnexion de l'utilisateur et redirection vers un la page d'inscription
                 session_destroy();
                 header("Location: registration.php");
                 exit;
