@@ -73,6 +73,8 @@ $userId = $connectedId;
                 $tableauDeLikes[$postId] = $isLikedPost;
 
 
+                $taglist = $post['taglist'];
+
             ?>
 
                 <article>

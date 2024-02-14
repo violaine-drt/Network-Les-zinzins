@@ -11,10 +11,13 @@ if (!$isLikedPost) {
     </svg>
 </button>
 <?php
-if ($post['taglist']) {
+if (isset($taglist) && $taglist) {
+    $tags = explode(',', $taglist);
+    foreach ($tags as $tag) {
 ?>
-    <a href="tags.php?tag_id=<?php echo $post['taglist'] ?>">#<?php echo $post['taglist'] ?></a>
+    <a href="tags.php?tag_id=<?php echo $tag ?>">#<?php echo $tag ?></a>
 <?php
+    }
 }
 
 ?>

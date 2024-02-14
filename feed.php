@@ -65,7 +65,7 @@ $userId = $connectedId;
                 echo ("Échec de la requete : " . $mysqli->error);
             }
 
-
+      
             $tableauDeLikes = array();
             $redirectionAdress = "Location: feed.php?user_id=$userId";
 
@@ -90,7 +90,7 @@ $userId = $connectedId;
                 $tableauDeLikes[$postId] = $isLikedPost;
 
                 $leResultatDesPosts = $mysqli->query($ChercherLesPostsQueJaiLike);
-
+                $taglist = $post['taglist'];
             ?>
 
                 <article>

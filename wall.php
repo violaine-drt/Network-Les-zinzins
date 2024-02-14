@@ -137,7 +137,7 @@ if (!$myOwnWall) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
 
-
+            
             $tableauDeLikes = array();
             while ($post = $lesPostsDeCeMur->fetch_assoc()) {
                 $postId = $post['postId'];
@@ -149,6 +149,7 @@ if (!$myOwnWall) {
                 $isLikedPost = $tableauAssociatifDeLikes['like_count'] > 0;
 
                 $tableauDeLikes[$postId] = $isLikedPost;
+                $taglist = $post['taglist'];
             ?>
 
                 <article>
