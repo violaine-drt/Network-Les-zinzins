@@ -5,31 +5,26 @@ $mysqli = importBdd();
 $connectedId = intval($_SESSION['connected_id']);
 $userId = $connectedId;
 
-$targetDir = "uploads/"; // Dossier où les images téléchargées seront stockées
-$targetFile = $targetDir . basename($_FILES["fileToUpload"]["name"]);
+// Dossier où les images téléchargées seront stockées
+$dossierCible = "uploads/"; 
+$fichierCible = $dossierCible . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
-$imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+$imageFileType = strtolower(pathinfo($fichierCible, PATHINFO_EXTENSION));
 
-// Vérifie si le fichier est une image réelle ou une fausse image
+// Vérifie si le fichier est bien une image
 if (isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if ($check !== false) {
         echo "Le fichier est une image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
-        echo 'le fichier n\'est pas une image';
+        echo 'Le fichier n\'est pas une image';
         $uploadOk = 0;
     }
 }
 
-// Vérifie si le fichier existe déjà
-if (file_exists($targetFile)) {
-    echo "Désolé, le fichier existe déjà.";
-    $uploadOk = 0;
-}
-
 // Vérifie la taille du fichier
-if ($_FILES["fileToUpload"]["size"] > 500000) {
+if ($_FILES["fileToUpload"]["size"] > 1500000) {
     echo "Désolé, votre fichier est trop volumineux.";
     $uploadOk = 0;
 }
@@ -46,13 +41,22 @@ if ($uploadOk == 0) {
     echo "Désolé, votre fichier n'a pas été téléchargé.";
 } else {
     // Si tout est ok, tente de télécharger le fichier
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile)) {
-        // Enregistre le chemin du fichier dans la base de données pour l'utilisateur connecté
-        $updateQuery = "UPDATE users SET profile_image = '$targetFile' WHERE id = $connectedId";
-        $mysqli->query($updateQuery);
+    if (!file_exists($dossierCible)) {
+        mkdir($dossierCible, 0777, true);
+    }
+
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $fichierCible)) {
+        // Utiliser une requête préparée pour améliorer la sécurité
+        $updateQuery = $mysqli->prepare("UPDATE users SET profile_image = ? WHERE id = ?");
+        $updateQuery->bind_param("si", $fichierCible, $connectedId);
+        $updateQuery->execute();
+        $updateQuery->close();
+
         echo "Le fichier " . basename($_FILES["fileToUpload"]["name"]) . " a été téléchargé avec succès.";
     } else {
         echo "Désolé, une erreur s'est produite lors du téléchargement de votre fichier.";
     }
 }
+
 ?>
+<p><a href="settings.php?user_id=<?php echo $userId; ?>">Pour être redirigé.e, cliquez ici</a>.</p>
