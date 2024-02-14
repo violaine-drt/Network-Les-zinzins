@@ -14,6 +14,14 @@ if (!isset($_SESSION['connected_id'])) {
 $connectedId = intval($_SESSION['connected_id']);
 $userId = $connectedId;
 
+$wallId = isset($_GET['wall_id']) ? intval($_GET['wall_id']) : 0;
+
+if ($wallId == $connectedId) {
+    $userId = $connectedId;
+    $myOwnWall = true;
+} else {
+    $myOwnWall = false;
+}
 
 ?>
 
