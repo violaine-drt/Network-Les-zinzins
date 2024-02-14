@@ -4,6 +4,7 @@ $mysqli = importBdd();
 $connectedId = intval($_SESSION['connected_id']);
 $userId = $connectedId;
 
+$messageDelete = ""; // Message pour la suppression
 $message = ""; // Initialisation du message (erreur ou succès)
 $messageClass = ""; // Initialisation de la classe du message pour un CSS en début de page
                     // Pas une bonne pratique mais ça permet de le forcer dans ce cas précis
@@ -40,6 +41,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             $message = "L'ancien mot de passe est incorrect.";
+            $messageClass = "error";
+        }
+    } elseif (isset($_POST['delete_account'])) {
+        // Vérification du mot de passe
+        $confirmPasswordDelete = $_POST['confirm_password_delete'];
+        $laQuestionEnSql = "SELECT password FROM users WHERE id = '$userId'";
+        $result = $mysqli->query($laQuestionEnSql);
+        $user = $result->fetch_assoc();
+        $hashedPassword = $user['password'];
+
+        if ($hashedPassword === md5($confirmPasswordDelete)) {
+            // Mot de passe confirmé, suppression du compte
+            $deleteQuery = "DELETE FROM users WHERE id = '$userId'";
+            if ($mysqli->query($deleteQuery) === TRUE) {
+                // Déconnexion de l'utilisateur et redirection vers une page d'accueil par exemple
+                session_destroy();
+                header("Location: registration.php");
+                exit;
+            } else {
+                $messageDelete = "Erreur lors de la suppression du compte: " . $mysqli->error;
+                $messageClass = "error";
+            }
+        } else {
+            // Mot de passe incorrect
+            $messageDelete = "Mot de passe incorrect. Veuillez réessayer.";
             $messageClass = "error";
         }
     }
@@ -141,6 +167,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="submit" name="change_password" value="Changer le mot de passe">
                 </form>
             </article>
+            <article class='parameters'>
+                <?php 
+                if (isset($message)) {
+                    echo "<p class='$messageClass'>$messageDelete</p>";
+                }
+                ?>
+                <h3>Supprimer le compte</h3>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+                    <label for="confirm_password_delete">Entrez votre mot de passe pour confirmer :</label>
+                    <input type="password" name="confirm_password_delete" required><br><br>
+                    <input type="submit" name="delete_account" value="Supprimer le compte">
+                </form>
+</article>
         </main>
     </div>
 </body>
