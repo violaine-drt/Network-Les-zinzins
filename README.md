@@ -28,6 +28,5 @@ A partir d'une codebase existante en php / html, représentant une trame de rés
 
 Licence CC-BY-NC
 
-**Contacts**
 
 
