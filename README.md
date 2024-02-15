@@ -1,4 +1,5 @@
 # projet-collectif-r-seau-social-php-les-zinzins-zestes
+![image](https://github.com/violaine-drt/Network-Les-zinzins/assets/146751418/68520d3c-bc8a-47e0-b5d7-dcd10a97f4b7)
 
 Les zinzins zestés est un réseau social développé en local.
 Technos :php / mySQL / html / CSS
